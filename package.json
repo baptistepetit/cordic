@@ -1,0 +1,12 @@
+{
+  "name": "cordic",
+  "version": "0.0.0",
+  "description": "Naive cordic algorithm implementation",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Baptiste PETIT",
+  "license": "MIT"
+}
