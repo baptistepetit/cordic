@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Naive cordic algorithm implementation",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "mocha",
     "start": "node src/app.js"

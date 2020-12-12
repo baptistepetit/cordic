@@ -34,19 +34,11 @@ function calculateCordicRotation(cordicParams, cordicAngles) {
     return {x_n: x_i, y_n: y_i};
 }
 
-const iterations = 20;
-const angleLut = generateAngleLUT(iterations);
-const gain = calculateGainFromAngleLUT(angleLut);
-const params = {x_zero: gain, y_zero: 0, angle: Math.PI / 4};
-const result = calculateCordicRotation(params, angleLut);
+export function calculateCordicCosine(angle, iterations) {
+    const angleLut = generateAngleLUT(iterations);
+    const gain = calculateGainFromAngleLUT(angleLut);
+    const params = {x_zero: gain, y_zero: 0, angle: angle};
+    const result = calculateCordicRotation(params, angleLut);
 
-console.log("Generated CORDIC Angle LUT is: ", angleLut);
-console.log("CORDIC Gain is: ", gain);
-console.log(
-    "Coordinates rotated through CORDIC algorithm: ",
-    result
-);
-console.log(
-    "Maths functions result: ",
-    {x_n: Math.cos(Math.PI / 4), y_n: Math.sin(Math.PI / 4)}
-)
+    return {cos: result.x_n, sin: result.y_n};
+}
