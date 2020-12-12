@@ -4,9 +4,12 @@
   "description": "Naive cordic algorithm implementation",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node src/app.js"
   },
   "author": "Baptiste PETIT",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^8.2.1"
+  }
 }
