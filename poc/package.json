@@ -2,16 +2,18 @@
   "name": "cordic",
   "version": "0.0.0",
   "description": "Naive cordic algorithm implementation",
-  "main": "app.js",
+  "private": true,
   "type": "module",
   "scripts": {
     "test": "mocha",
-    "start": "node src/app.js"
+    "build": "webpack"
   },
   "author": "Baptiste PETIT",
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^8.2.1"
+    "mocha": "^8.2.1",
+    "webpack": "^5.10.1",
+    "webpack-cli": "^4.2.0"
   }
 }
