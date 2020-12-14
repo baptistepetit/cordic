@@ -1,4 +1,5 @@
 import { calculateCordicCosine } from './cordic.js'
+import * as renderer from './render.js'
 
 export function run() {
     console.log(
@@ -11,6 +12,7 @@ export function run() {
         {x_n: Math.cos(Math.PI / 4), y_n: Math.sin(Math.PI / 4)}
     );
 
+    renderer.drawUnitCircle();
 }
 
 run();
