@@ -1,9 +1,16 @@
 import { calculateCordicCosine } from './cordic.js'
 import * as renderer from './render.js'
 
+function degToRad(x){
+    return x * Math.PI / 180;
+}
+
+const iterationsInput = document.getElementById("iterations-input");
+const angleInput = document.getElementById("angle-input");
+
 export function run() {
-    const targetAngle = Math.PI/4;
-    const cordicIterations = 20;
+    const targetAngle = degToRad(angleInput.value);
+    const cordicIterations = iterationsInput.value;
 
     const res = calculateCordicCosine(targetAngle, cordicIterations);
 

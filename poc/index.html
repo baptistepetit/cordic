@@ -8,6 +8,10 @@
 
 <body>
     <canvas id="cordic-app-canvas" width="600" height="600"></canvas>
+    <label for="angle-input">Target Angle:</label>
+    <input type="number" min="0" max="360" value="60" id="angle-input" onchange="CordicApp.run();"></input>
+    <label for="iterations-input">CORDIC Iterations:</label>
+    <input type="number" min="1" max="32" step="1" value="1" id="iterations-input" onchange="CordicApp.run();"></input>
     <script src="./dist/bundle.js"></script>
 </body>
 
