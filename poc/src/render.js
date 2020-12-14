@@ -5,6 +5,12 @@ const xCenter = 400;
 const yCenter = 400;
 const radius = 200;
 
+export function clear() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = 1;
+}
+
 export function drawUnitCircle() {
     ctx.beginPath();
     ctx.arc(xCenter, yCenter, radius, 0, 2 * Math.PI);

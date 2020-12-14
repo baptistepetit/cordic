@@ -17,6 +17,7 @@ export function run() {
         {x_n: Math.cos(targetAngle), y_n: Math.sin(targetAngle)}
     );
 
+    renderer.clear();
     renderer.drawUnitCircle();
     renderer.drawVector(Math.cos(targetAngle), Math.sin(targetAngle), "#FF0000", 5);
     renderer.drawVector(res.cos, res.sin, "#000000", 2);
