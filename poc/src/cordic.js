@@ -34,11 +34,46 @@ function calculateCordicRotation(cordicParams, cordicAngles) {
     return {x_n: x_i, y_n: y_i};
 }
 
+function preRotateIntoRange(cordicParams) {
+    let rotatedParams;
+
+    if (cordicParams.angle >= 0 && cordicParams.angle <= Math.PI/4) {
+        rotatedParams = cordicParams;
+    } else if (cordicParams.angle >= Math.PI/4 && cordicParams.angle <= 3*Math.PI/4) {
+        rotatedParams = {
+            x_zero: -cordicParams.y_zero,
+            y_zero: cordicParams.x_zero,
+            angle: cordicParams.angle - Math.PI/2
+        }
+    } else if (cordicParams.angle >= 3*Math.PI/4 && cordicParams.angle <= 5*Math.PI/4) {
+        rotatedParams = {
+            x_zero: -cordicParams.x_zero,
+            y_zero: -cordicParams.y_zero,
+            angle: cordicParams.angle - Math.PI
+        }
+    } else if (cordicParams.angle >= 5*Math.PI/4 && cordicParams.angle <= 7*Math.PI/4) {
+        rotatedParams = {
+            x_zero: cordicParams.y_zero,
+            y_zero: -cordicParams.x_zero,
+            angle: cordicParams.angle - 3*Math.PI/2
+        }
+    } else {  // cordicParams.angle >= 7*Math.PI/4 && cordicParams.angle <= 2*Math.PI
+        rotatedParams = {
+            x_zero: cordicParams.x_zero,
+            y_zero: cordicParams.y_zero,
+            angle: cordicParams.angle - 2*Math.PI
+        }
+    }
+
+    return rotatedParams;
+}
+
+
 export function calculateCordicCosine(angle, iterations) {
     const angleLut = generateAngleLUT(iterations);
     const gain = calculateGainFromAngleLUT(angleLut);
     const params = {x_zero: gain, y_zero: 0, angle: angle};
-    const result = calculateCordicRotation(params, angleLut);
+    const result = calculateCordicRotation(preRotateIntoRange(params), angleLut);
 
     return {cos: result.x_n, sin: result.y_n};
 }
