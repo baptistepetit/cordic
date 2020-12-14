@@ -4,14 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <title>CORDIC Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .flex-container {
+            display: flex;
+            height: 600px;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .flex-container-col {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 5px;
+        }
+
+        .item {
+            margin: 5px;
+        }
+    </style>
 </head>
 
 <body>
-    <canvas id="cordic-app-canvas" width="600" height="600"></canvas>
-    <label for="angle-input">Target Angle:</label>
-    <input type="number" min="0" max="360" value="60" id="angle-input" onchange="CordicApp.run();"></input>
-    <label for="iterations-input">CORDIC Iterations:</label>
-    <input type="number" min="1" max="32" step="1" value="1" id="iterations-input" onchange="CordicApp.run();"></input>
+    <div class="flex-container">
+        <div class="item">
+            <canvas id="cordic-app-canvas" width="410" height="410"></canvas>
+        </div>
+        <div class="flex-container-col">
+            <div class="item">
+                <h1>Parameters:</h1>
+            </div>
+            <div class="item">
+                <label for="angle-input">Target Angle:</label>
+                <input type="number" min="0" max="360" value="60" id="angle-input" onchange="CordicApp.run();"></input>
+            </div>
+            <div class="item">
+                <label for="iterations-input">CORDIC Iterations:</label>
+                <input type="number" min="1" max="32" step="1" value="1" id="iterations-input"
+                    onchange="CordicApp.run();"></input>
+            </div>
+        </div>
+    </div>
     <script src="./dist/bundle.js"></script>
 </body>
 

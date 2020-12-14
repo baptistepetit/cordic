@@ -1,8 +1,8 @@
 const canvas = document.getElementById("cordic-app-canvas");
 var ctx = canvas.getContext("2d");
 
-const xCenter = 400;
-const yCenter = 400;
+const xCenter = 205;
+const yCenter = 205;
 const radius = 200;
 
 export function clear() {
