@@ -1,4 +1,4 @@
-import { calculateCordicCosine } from '../src/cordic.js'
+import { calculateCordicCosine } from './cordic.js'
 
 export function run() {
     console.log(
