@@ -1,5 +1,5 @@
 import chai from 'chai';
-import { calculateCordicCosine } from '../src/cordic.js'
+import { calculateCordicCosine, setupCordicConstants } from '../src/cordic.js'
 
 const expect = chai.expect;
 
@@ -15,11 +15,12 @@ describe('Cordic', function() {
 
     describe('Cos', function() {
         let testTuples = [];
+        setupCordicConstants(cordicIterations);
 
         testAngles.forEach(angle => {
             testTuples.push({
                 angle: angle,
-                result: calculateCordicCosine(angle, cordicIterations).cos,
+                result: calculateCordicCosine(angle).cos,
                 expected: Math.cos(angle)
             });
         });
@@ -35,11 +36,12 @@ describe('Cordic', function() {
 
     describe('Sin', function() {
         let testTuples = [];
+        setupCordicConstants(cordicIterations);
 
         testAngles.forEach(angle => {
             testTuples.push({
                 angle: angle,
-                result: calculateCordicCosine(angle, cordicIterations).sin,
+                result: calculateCordicCosine(angle).sin,
                 expected: Math.sin(angle)
             });
         });

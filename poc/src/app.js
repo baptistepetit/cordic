@@ -1,4 +1,4 @@
-import { calculateCordicCosine } from './cordic.js'
+import { calculateCordicCosine, setupCordicConstants } from './cordic.js'
 import * as renderer from './render.js'
 
 function degToRad(x){
@@ -8,11 +8,14 @@ function degToRad(x){
 const iterationsInput = document.getElementById("iterations-input");
 const angleInput = document.getElementById("angle-input");
 
+export function setup() {
+    const cordicIterations = iterationsInput.value;
+    setupCordicConstants(cordicIterations);
+}
+
 export function run() {
     const targetAngle = degToRad(angleInput.value);
-    const cordicIterations = iterationsInput.value;
-
-    const res = calculateCordicCosine(targetAngle, cordicIterations);
+    const res = calculateCordicCosine(targetAngle);
 
     renderer.clear();
     renderer.drawUnitCircle();
@@ -20,4 +23,5 @@ export function run() {
     renderer.drawVector(res.cos, res.sin, "#000000", 2);
 }
 
+setup();
 run();
