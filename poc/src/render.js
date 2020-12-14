@@ -10,3 +10,12 @@ export function drawUnitCircle() {
     ctx.arc(xCenter, yCenter, radius, 0, 2 * Math.PI);
     ctx.stroke();
 }
+
+export function drawVector(x, y, style, lineWidth) {
+    ctx.beginPath();
+    ctx.moveTo(xCenter + x * radius, yCenter - y * radius);
+    ctx.lineTo(xCenter, yCenter);
+    ctx.strokeStyle = style;
+    ctx.lineWidth = lineWidth;
+    ctx.stroke();
+}
