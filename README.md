@@ -5,3 +5,10 @@
 
 
 This repository aims at taking a classical computer science algorithm, the **CO**ordinate **R**otation **DI**gital **C**omputer, and refine it step by step into an FPGA design in VHDL.
+
+
+## Proof of Concept
+
+Stored in the `poc/` folder, this is the first step of this implementation journey. A simple static webpage with JavaScript code implementing the algorithm in a naive way, written to get to know better the algorithm.
+
+More details in its [README](poc/README.md).
