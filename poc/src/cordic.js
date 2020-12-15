@@ -68,10 +68,15 @@ function preRotateIntoRange(cordicParams) {
     return rotatedParams;
 }
 
+let angleLut = [];
+let gain;
 
-export function calculateCordicCosine(angle, iterations) {
-    const angleLut = generateAngleLUT(iterations);
-    const gain = calculateGainFromAngleLUT(angleLut);
+export function setupCordicConstants(iterations) {
+    angleLut = generateAngleLUT(iterations);
+    gain = calculateGainFromAngleLUT(angleLut);
+}
+
+export function calculateCordicCosine(angle) {
     const params = {x_zero: gain, y_zero: 0, angle: angle};
     const result = calculateCordicRotation(preRotateIntoRange(params), angleLut);
 

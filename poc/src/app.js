@@ -1,11 +1,27 @@
-import { calculateCordicCosine } from '../src/cordic.js'
+import { calculateCordicCosine, setupCordicConstants } from './cordic.js'
+import * as renderer from './render.js'
 
-console.log(
-    "Coordinates rotated through CORDIC algorithm: ",
-    calculateCordicCosine(Math.PI / 4, 20)
-);
+function degToRad(x){
+    return x * Math.PI / 180;
+}
 
-console.log(
-    "Maths functions result: ",
-    {x_n: Math.cos(Math.PI / 4), y_n: Math.sin(Math.PI / 4)}
-);
+const iterationsInput = document.getElementById("iterations-input");
+const angleInput = document.getElementById("angle-input");
+
+export function setup() {
+    const cordicIterations = iterationsInput.value;
+    setupCordicConstants(cordicIterations);
+}
+
+export function run() {
+    const targetAngle = degToRad(angleInput.value);
+    const res = calculateCordicCosine(targetAngle);
+
+    renderer.clear();
+    renderer.drawUnitCircle();
+    renderer.drawVector(Math.cos(targetAngle), Math.sin(targetAngle), "#FF0000", 5);
+    renderer.drawVector(res.cos, res.sin, "#000000", 2);
+}
+
+setup();
+run();
