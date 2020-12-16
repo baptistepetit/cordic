@@ -35,37 +35,29 @@ CordicParameters Cordic::preRotateIntoRange(const CordicParameters &parameters)
     if (parameters.targetAngle >= 0 && parameters.targetAngle <= M_PI/4) {
         rotatedParams = parameters;
     } else if (parameters.targetAngle >= M_PI/4 && parameters.targetAngle <= 3*M_PI/4) {
-        rotatedParams = CordicParameters{
-            .initialPosition=Position{
-                .x=-parameters.initialPosition.y,
-                .y=parameters.initialPosition.x
-            },
-            .targetAngle=(parameters.targetAngle - M_PI/2)
-        };
+        rotatedParams = CordicParameters(
+            -parameters.initPosition.y,
+            parameters.initPosition.x,
+            parameters.targetAngle - M_PI / 2
+        );
     } else if (parameters.targetAngle >= 3*M_PI/4 && parameters.targetAngle <= 5*M_PI/4) {
-        rotatedParams = CordicParameters{
-            .initialPosition=Position{
-                .x=-parameters.initialPosition.x,
-                .y=-parameters.initialPosition.y
-            },
-            .targetAngle=(parameters.targetAngle - M_PI)
-        };
+        rotatedParams = CordicParameters(
+            -parameters.initPosition.x,
+            -parameters.initPosition.y,
+            parameters.targetAngle - M_PI
+        );
     } else if (parameters.targetAngle >= 5*M_PI/4 && parameters.targetAngle <= 7*M_PI/4) {
-        rotatedParams = CordicParameters{
-            .initialPosition=Position{
-                .x=parameters.initialPosition.y,
-                .y=-parameters.initialPosition.x
-            },
-            .targetAngle=(parameters.targetAngle - 3*M_PI/2)
-        };
+        rotatedParams = CordicParameters(
+            parameters.initPosition.y,
+            -parameters.initPosition.x,
+            parameters.targetAngle - 3 * M_PI / 2
+        );
     } else {  // parameters.targetAngle >= 7*M_PI/4 && parameters.targetAngle <= 2*M_PI
-        rotatedParams = CordicParameters{
-            .initialPosition=Position{
-                .x=parameters.initialPosition.x,
-                .y=parameters.initialPosition.y
-            },
-            .targetAngle=(parameters.targetAngle - 2*M_PI)
-        };
+        rotatedParams = CordicParameters(
+            parameters.initPosition.x,
+            parameters.initPosition.y,
+            parameters.targetAngle - 2 * M_PI
+        );
     }
 
     return rotatedParams;
@@ -73,34 +65,30 @@ CordicParameters Cordic::preRotateIntoRange(const CordicParameters &parameters)
 
 Position Cordic::calculateCordicRotation(const CordicParameters &parameters)
 {
-    float x = parameters.initialPosition.x;
-    float y = parameters.initialPosition.y;
+    Position position(parameters.initPosition.x, parameters.initPosition.y);
     float phase = parameters.targetAngle;
 
     for (unsigned i = 0; i < angleLut.size(); i++) {
+        Position positionNext;
         float sign = phase < 0 ? -1.f : 1.f;
 
-        float xNext = x - sign * y / (1 << i);
-        float yNext = y + sign * x / (1 << i);
+        positionNext.x = position.x - sign * position.y / (1 << i);
+        positionNext.y = position.y + sign * position.x / (1 << i);
         float phaseNext = phase - sign * angleLut.at(i);
 
-        x = xNext;
-        y = yNext;
+        position = positionNext;
         phase = phaseNext;
     }
 
-    return Position{ .x=x, .y=y };
+    return position;
 }
 
 CosSinPair Cordic::calculateCordicCosine(const float &targetAngle)
 {
-    const CordicParameters parameters = {
-        .initialPosition=Position{ .x= gain, .y= 0},
-        .targetAngle=targetAngle
-    };
+    const CordicParameters parameters(gain, 0, targetAngle);
     const Position rotatedPosition = calculateCordicRotation(
         preRotateIntoRange(parameters)
     );
 
-    return CosSinPair{ .cos=rotatedPosition.x, .sin=rotatedPosition.y };
+    return CosSinPair(rotatedPosition.x, rotatedPosition.y);
 }

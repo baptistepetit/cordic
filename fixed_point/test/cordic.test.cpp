@@ -3,6 +3,7 @@
 #include "gtest/gtest.h"
 
 #include "cordic.hpp"
+#include "types.hpp"
 
 class CordicTest : public testing::TestWithParam<float> {
 protected:
@@ -17,10 +18,10 @@ TEST_P(CordicTest, CosineCalculationsAreCorrect)
 {
     float epsilon = 0.001;
     CosSinPair calculatedCosSinPair = cordic->calculateCordicCosine(GetParam());
-    CosSinPair expectedCosSinPair = CosSinPair{
-        .cos=static_cast<float>(cos(GetParam())),
-        .sin=static_cast<float>(sin(GetParam()))
-    };
+    CosSinPair expectedCosSinPair(
+        static_cast<float>(cos(GetParam())),
+        static_cast<float>(sin(GetParam()))
+    );
 
     EXPECT_NEAR(calculatedCosSinPair.cos, expectedCosSinPair.cos, epsilon);
     EXPECT_NEAR(calculatedCosSinPair.sin, expectedCosSinPair.sin, epsilon);

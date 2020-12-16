@@ -2,20 +2,7 @@
 
 #include <vector>
 
-struct Position {
-    float x;
-    float y;
-};
-
-struct CordicParameters {
-    Position initialPosition;
-    float targetAngle;
-};
-
-struct CosSinPair {
-    float cos;
-    float sin;
-};
+#include "types.hpp"
 
 class Cordic
 {
