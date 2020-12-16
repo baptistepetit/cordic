@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "cordic.hpp"
 
 Cordic::Cordic()
@@ -28,7 +30,45 @@ Cordic::~Cordic()
 
 CordicParameters Cordic::preRotateIntoRange(const CordicParameters &parameters)
 {
-    return parameters;
+    CordicParameters rotatedParams;
+
+    if (parameters.targetAngle >= 0 && parameters.targetAngle <= M_PI/4) {
+        rotatedParams = parameters;
+    } else if (parameters.targetAngle >= M_PI/4 && parameters.targetAngle <= 3*M_PI/4) {
+        rotatedParams = CordicParameters{
+            .initialPosition=Position{
+                .x=-parameters.initialPosition.y,
+                .y=parameters.initialPosition.x
+            },
+            .targetAngle=(parameters.targetAngle - M_PI/2)
+        };
+    } else if (parameters.targetAngle >= 3*M_PI/4 && parameters.targetAngle <= 5*M_PI/4) {
+        rotatedParams = CordicParameters{
+            .initialPosition=Position{
+                .x=-parameters.initialPosition.x,
+                .y=-parameters.initialPosition.y
+            },
+            .targetAngle=(parameters.targetAngle - M_PI)
+        };
+    } else if (parameters.targetAngle >= 5*M_PI/4 && parameters.targetAngle <= 7*M_PI/4) {
+        rotatedParams = CordicParameters{
+            .initialPosition=Position{
+                .x=parameters.initialPosition.y,
+                .y=-parameters.initialPosition.x
+            },
+            .targetAngle=(parameters.targetAngle - 3*M_PI/2)
+        };
+    } else {  // parameters.targetAngle >= 7*M_PI/4 && parameters.targetAngle <= 2*M_PI
+        rotatedParams = CordicParameters{
+            .initialPosition=Position{
+                .x=parameters.initialPosition.x,
+                .y=parameters.initialPosition.y
+            },
+            .targetAngle=(parameters.targetAngle - 2*M_PI)
+        };
+    }
+
+    return rotatedParams;
 }
 
 Position Cordic::calculateCordicRotation(const CordicParameters &parameters)
