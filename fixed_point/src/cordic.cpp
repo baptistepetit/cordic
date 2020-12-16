@@ -28,12 +28,28 @@ Cordic::~Cordic()
 
 CordicParameters Cordic::preRotateIntoRange(const CordicParameters &parameters)
 {
-    return {{0, 0}, 0};
+    return parameters;
 }
 
 Position Cordic::calculateCordicRotation(const CordicParameters &parameters)
 {
-    return {0, 0};
+    float x = parameters.initialPosition.x;
+    float y = parameters.initialPosition.y;
+    float phase = parameters.targetAngle;
+
+    for (unsigned i = 0; i < angleLut.size(); i++) {
+        float sign = phase < 0 ? -1.f : 1.f;
+
+        float xNext = x - sign * y / (1 << i);
+        float yNext = y + sign * x / (1 << i);
+        float phaseNext = phase - sign * angleLut.at(i);
+
+        x = xNext;
+        y = yNext;
+        phase = phaseNext;
+    }
+
+    return Position{ .x=x, .y=y };
 }
 
 CosSinPair Cordic::calculateCordicCosine(const float &targetAngle)
