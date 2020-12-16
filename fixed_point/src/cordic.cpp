@@ -38,5 +38,13 @@ Position Cordic::calculateCordicRotation(const CordicParameters &parameters)
 
 CosSinPair Cordic::calculateCordicCosine(const float &targetAngle)
 {
-    return {0, 0};
+    const CordicParameters parameters = {
+        .initialPosition=Position{ .x= gain, .y= 0},
+        .targetAngle=targetAngle
+    };
+    const Position rotatedPosition = calculateCordicRotation(
+        preRotateIntoRange(parameters)
+    );
+
+    return CosSinPair{ .cos=rotatedPosition.x, .sin=rotatedPosition.y };
 }
