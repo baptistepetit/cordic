@@ -4,15 +4,23 @@ project(fixed-point-cordic)
 
 find_package(GTest REQUIRED)
 
+include_directories(
+   "${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
+
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 add_executable(
     ${PROJECT_NAME}
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+    ${SOURCES}
 )
 
 enable_testing()
+file(GLOB_RECURSE TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/test/*.test.cpp")
+list(APPEND TEST_SOURCES ${SOURCES})
+list(REMOVE_ITEM TEST_SOURCES EXCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
 add_executable(
     ${PROJECT_NAME}-test
-    ${CMAKE_CURRENT_SOURCE_DIR}/test/main.test.cpp
+    ${TEST_SOURCES}
 )
 target_link_libraries(${PROJECT_NAME}-test gtest pthread)
 gtest_add_tests(TARGET ${PROJECT_NAME}-test)
