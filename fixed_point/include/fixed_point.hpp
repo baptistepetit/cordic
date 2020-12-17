@@ -12,7 +12,12 @@ public:
     ~FixedPoint() {}
 
     static constexpr float resolution = 1.f / std::pow(2.f, F);
+
+    FixedPoint<M, F>& operator+= (const FixedPoint<M, F>& rhs);
+    FixedPoint<M, F>& operator-= (const FixedPoint<M, F>& rhs);
+
     float toFloat();
+    int32_t getRaw() const{ return data; }
 
 private:
     int32_t data;
@@ -33,7 +38,33 @@ FixedPoint<M, F>::FixedPoint(float _data)
 }
 
 template<int M, int F>
+FixedPoint<M, F>& FixedPoint<M, F>::operator+= (const FixedPoint<M, F>& rhs)
+{
+    data += rhs.getRaw();
+    return *this;
+}
+
+template<int M, int F>
+FixedPoint<M, F>& FixedPoint<M, F>::operator-= (const FixedPoint<M, F>& rhs)
+{
+    data -= rhs.getRaw();
+    return *this;
+}
+
+template<int M, int F>
 float FixedPoint<M, F>::toFloat()
 {
     return static_cast<float>(data) * FixedPoint<M, F>::resolution;
+}
+
+template<int M, int F>
+inline FixedPoint<M, F> operator+ (FixedPoint<M, F> lhs, const FixedPoint<M, F>& rhs)
+{
+    return lhs += rhs;
+}
+
+template<int M, int F>
+inline FixedPoint<M, F> operator- (FixedPoint<M, F> lhs, const FixedPoint<M, F>& rhs)
+{
+    return lhs -= rhs;
 }
