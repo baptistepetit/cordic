@@ -4,6 +4,8 @@ project(fixed-point-cordic)
 
 find_package(GTest REQUIRED)
 
+add_compile_options(-std=c++14)
+
 include_directories(
    "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
