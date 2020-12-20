@@ -15,6 +15,8 @@ public:
 
     FixedPoint<M, F>& operator+= (const FixedPoint<M, F>& rhs);
     FixedPoint<M, F>& operator-= (const FixedPoint<M, F>& rhs);
+    FixedPoint<M, F>& operator<<= (const unsigned& rhs);
+    FixedPoint<M, F>& operator>>= (const unsigned& rhs);
 
     float toFloat();
     int32_t getRaw() const{ return data; }
@@ -67,6 +69,24 @@ FixedPoint<M, F>& FixedPoint<M, F>::operator-= (const FixedPoint<M, F>& rhs)
 }
 
 template<int M, int F>
+FixedPoint<M, F>& FixedPoint<M, F>::operator<<= (const unsigned& rhs)
+{
+    data <<= (32 - (M + F));
+    data <<= rhs;
+    data >>= (32 - (M + F));
+
+    return *this;
+}
+
+template<int M, int F>
+FixedPoint<M, F>& FixedPoint<M, F>::operator>>= (const unsigned& rhs)
+{
+    data >>= rhs;
+
+    return *this;
+}
+
+template<int M, int F>
 float FixedPoint<M, F>::toFloat()
 {
     return static_cast<float>(data) * FixedPoint<M, F>::resolution;
@@ -82,4 +102,16 @@ template<int M, int F>
 inline FixedPoint<M, F> operator- (FixedPoint<M, F> lhs, const FixedPoint<M, F>& rhs)
 {
     return lhs -= rhs;
+}
+
+template<int M, int F>
+inline FixedPoint<M, F> operator<< (FixedPoint<M, F> lhs, const unsigned& rhs)
+{
+    return lhs <<= rhs;
+}
+
+template<int M, int F>
+inline FixedPoint<M, F> operator>> (FixedPoint<M, F> lhs, const unsigned& rhs)
+{
+    return lhs >>= rhs;
 }

@@ -86,3 +86,45 @@ TEST(FixedPointTest, SubstractionOverflowWorks)
     float expected = 3;
     EXPECT_NEAR(result, expected, epsilon);
 }
+
+TEST(FixedPointTest, LeftShiftWorks)
+{
+    float a = -167.123456789123456;
+    unsigned shiftValue = 2;
+    float epsilon = 1.f / static_cast<float>(1 << 16);
+
+    FixedPoint<13, 16> aFixed(a);
+    FixedPoint<13, 16> bFixed = aFixed << shiftValue;
+
+    float result = bFixed.toFloat();
+    float expected = a * (1 << shiftValue);
+    EXPECT_NEAR(result, expected, epsilon);
+}
+
+TEST(FixedPointTest, LeftShiftOverflowWorks)
+{
+    float a = 3.f;
+    unsigned shiftValue = 1;
+    float epsilon = 1.f / static_cast<float>(1 << 16);
+
+    FixedPoint<3, 0> aFixed(a);
+    FixedPoint<3, 0> bFixed = aFixed << shiftValue;
+
+    float result = bFixed.toFloat();
+    float expected = -2;
+    EXPECT_NEAR(result, expected, epsilon);
+}
+
+TEST(FixedPointTest, RightShiftWorks)
+{
+    float a = -167.123456789123456;
+    unsigned shiftValue = 2;
+    float epsilon = 1.f / static_cast<float>(1 << 16);
+
+    FixedPoint<13, 16> aFixed(a);
+    FixedPoint<13, 16> bFixed = aFixed >> shiftValue;
+
+    float result = bFixed.toFloat();
+    float expected = a / static_cast<float>(1 << shiftValue);
+    EXPECT_NEAR(result, expected, epsilon);
+}
