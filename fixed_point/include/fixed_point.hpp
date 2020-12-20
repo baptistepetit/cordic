@@ -40,14 +40,29 @@ FixedPoint<M, F>::FixedPoint(float _data)
 template<int M, int F>
 FixedPoint<M, F>& FixedPoint<M, F>::operator+= (const FixedPoint<M, F>& rhs)
 {
-    data += rhs.getRaw();
+    int32_t rhsData = rhs.getRaw();
+
+    rhsData <<= (32 - (M + F));
+    data <<= (32 - (M + F));
+
+    data += rhsData;
+
+    data >>= (32 - (M + F));
+
     return *this;
 }
 
 template<int M, int F>
 FixedPoint<M, F>& FixedPoint<M, F>::operator-= (const FixedPoint<M, F>& rhs)
 {
-    data -= rhs.getRaw();
+    int32_t rhsData = rhs.getRaw();
+
+    rhsData <<= (32 - (M + F));
+    data <<= (32 - (M + F));
+
+    data -= rhsData;
+
+    data >>= (32 - (M + F));
     return *this;
 }
 

@@ -42,6 +42,21 @@ TEST(FixedPointTest, AdditionWorks)
     EXPECT_NEAR(result, expected, epsilon);
 }
 
+TEST(FixedPointTest, AdditionOverflowWorks)
+{
+    float a = 3.f;
+    float b = 1.f;
+    float epsilon = 1.f / static_cast<float>(1 << 16);
+
+    FixedPoint<3, 0> aFixed(a);
+    FixedPoint<3, 0> bFixed(b);
+    FixedPoint<3, 0> cFixed = aFixed + bFixed;
+
+    float result = cFixed.toFloat();
+    float expected = -4;
+    EXPECT_NEAR(result, expected, epsilon);
+}
+
 TEST(FixedPointTest, SubstractionWorks)
 {
     float a = 167.123456789123456;
@@ -54,5 +69,20 @@ TEST(FixedPointTest, SubstractionWorks)
 
     float result = cFixed.toFloat();
     float expected = a - b;
+    EXPECT_NEAR(result, expected, epsilon);
+}
+
+TEST(FixedPointTest, SubstractionOverflowWorks)
+{
+    float a = -4.f;
+    float b = 1.f;
+    float epsilon = 1.f / static_cast<float>(1 << 16);
+
+    FixedPoint<3, 0> aFixed(a);
+    FixedPoint<3, 0> bFixed(b);
+    FixedPoint<3, 0> cFixed = aFixed - bFixed;
+
+    float result = cFixed.toFloat();
+    float expected = 3;
     EXPECT_NEAR(result, expected, epsilon);
 }
