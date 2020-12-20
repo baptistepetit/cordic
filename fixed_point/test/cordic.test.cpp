@@ -17,8 +17,8 @@ protected:
 TEST_P(CordicTest, CosineCalculationsAreCorrect)
 {
     float epsilon = 0.001;
-    CosSinPair calculatedCosSinPair = cordic->calculateCordicCosine(GetParam());
-    CosSinPair expectedCosSinPair(
+    CosSinPair<float> calculatedCosSinPair = cordic->calculateCordicCosine(GetParam());
+    CosSinPair<float> expectedCosSinPair(
         static_cast<float>(cos(GetParam())),
         static_cast<float>(sin(GetParam()))
     );

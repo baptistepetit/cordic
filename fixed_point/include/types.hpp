@@ -1,26 +1,28 @@
 #pragma once
 
+template<typename T>
 class Position
 {
 public:
     Position() {}
-    Position(float _x, float _y)
+    Position(T _x, T _y)
     {
         x = _x;
         y = _y;
     }
     ~Position() {}
 
-    float x;
-    float y;
+    T x;
+    T y;
 };
 
+template<typename T>
 class CordicParameters
 {
 public:
     CordicParameters() {}
 
-    CordicParameters(float _xInit, float _yInit, float _targetAngle)
+    CordicParameters(T _xInit, T _yInit, float _targetAngle)
     {
         initPosition.x = _xInit;
         initPosition.y = _yInit;
@@ -28,21 +30,22 @@ public:
     }
     ~CordicParameters() {}
 
-    Position initPosition;
+    Position<T> initPosition;
     float targetAngle;
 };
 
+template<typename T>
 class CosSinPair
 {
 public:
     CosSinPair() {}
-    CosSinPair(float _cos, float _sin)
+    CosSinPair(T _cos, T _sin)
     {
         cos = _cos;
         sin = _sin;
     }
     ~CosSinPair() {}
 
-    float cos;
-    float sin;
+    T cos;
+    T sin;
 };

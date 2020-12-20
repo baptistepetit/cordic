@@ -10,12 +10,12 @@ public:
     Cordic();
     ~Cordic();
 
-    CosSinPair calculateCordicCosine(const float &targetAngle);
+    CosSinPair<float> calculateCordicCosine(const float &targetAngle);
 
 private:
     float gain;
     std::vector<float> angleLut;
 
-    CordicParameters preRotateIntoRange(const CordicParameters &parameters);
-    Position calculateCordicRotation(const CordicParameters &parameters);
+    CordicParameters<float> preRotateIntoRange(const CordicParameters<float> &parameters);
+    Position<float> calculateCordicRotation(const CordicParameters<float> &parameters);
 };

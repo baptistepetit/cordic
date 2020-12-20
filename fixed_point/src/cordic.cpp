@@ -28,32 +28,32 @@ Cordic::~Cordic()
 {
 }
 
-CordicParameters Cordic::preRotateIntoRange(const CordicParameters &parameters)
+CordicParameters<float> Cordic::preRotateIntoRange(const CordicParameters<float> &parameters)
 {
-    CordicParameters rotatedParams;
+    CordicParameters<float> rotatedParams;
 
     if (parameters.targetAngle >= 0 && parameters.targetAngle <= M_PI/4) {
         rotatedParams = parameters;
     } else if (parameters.targetAngle >= M_PI/4 && parameters.targetAngle <= 3*M_PI/4) {
-        rotatedParams = CordicParameters(
+        rotatedParams = CordicParameters<float>(
             -parameters.initPosition.y,
             parameters.initPosition.x,
             parameters.targetAngle - M_PI / 2
         );
     } else if (parameters.targetAngle >= 3*M_PI/4 && parameters.targetAngle <= 5*M_PI/4) {
-        rotatedParams = CordicParameters(
+        rotatedParams = CordicParameters<float>(
             -parameters.initPosition.x,
             -parameters.initPosition.y,
             parameters.targetAngle - M_PI
         );
     } else if (parameters.targetAngle >= 5*M_PI/4 && parameters.targetAngle <= 7*M_PI/4) {
-        rotatedParams = CordicParameters(
+        rotatedParams = CordicParameters<float>(
             parameters.initPosition.y,
             -parameters.initPosition.x,
             parameters.targetAngle - 3 * M_PI / 2
         );
     } else {  // parameters.targetAngle >= 7*M_PI/4 && parameters.targetAngle <= 2*M_PI
-        rotatedParams = CordicParameters(
+        rotatedParams = CordicParameters<float>(
             parameters.initPosition.x,
             parameters.initPosition.y,
             parameters.targetAngle - 2 * M_PI
@@ -63,13 +63,13 @@ CordicParameters Cordic::preRotateIntoRange(const CordicParameters &parameters)
     return rotatedParams;
 }
 
-Position Cordic::calculateCordicRotation(const CordicParameters &parameters)
+Position<float> Cordic::calculateCordicRotation(const CordicParameters<float> &parameters)
 {
-    Position position(parameters.initPosition.x, parameters.initPosition.y);
+    Position<float> position(parameters.initPosition.x, parameters.initPosition.y);
     float phase = parameters.targetAngle;
 
     for (unsigned i = 0; i < angleLut.size(); i++) {
-        Position positionNext;
+        Position<float> positionNext;
         float sign = phase < 0 ? -1.f : 1.f;
 
         positionNext.x = position.x - sign * position.y / (1 << i);
@@ -83,12 +83,12 @@ Position Cordic::calculateCordicRotation(const CordicParameters &parameters)
     return position;
 }
 
-CosSinPair Cordic::calculateCordicCosine(const float &targetAngle)
+CosSinPair<float> Cordic::calculateCordicCosine(const float &targetAngle)
 {
-    const CordicParameters parameters(gain, 0, targetAngle);
-    const Position rotatedPosition = calculateCordicRotation(
+    const CordicParameters<float> parameters(gain, 0, targetAngle);
+    const Position<float> rotatedPosition = calculateCordicRotation(
         preRotateIntoRange(parameters)
     );
 
-    return CosSinPair(rotatedPosition.x, rotatedPosition.y);
+    return CosSinPair<float>(rotatedPosition.x, rotatedPosition.y);
 }
