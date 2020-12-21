@@ -105,6 +105,12 @@ inline FixedPoint<M, F> operator- (FixedPoint<M, F> lhs, const FixedPoint<M, F>&
 }
 
 template<int M, int F>
+inline FixedPoint<M, F> operator- (const FixedPoint<M, F>& rhs)
+{
+    return FixedPoint<M, F>() - rhs;
+}
+
+template<int M, int F>
 inline FixedPoint<M, F> operator<< (FixedPoint<M, F> lhs, const unsigned& rhs)
 {
     return lhs <<= rhs;

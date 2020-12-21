@@ -128,3 +128,16 @@ TEST(FixedPointTest, RightShiftWorks)
     float expected = a / static_cast<float>(1 << shiftValue);
     EXPECT_NEAR(result, expected, epsilon);
 }
+
+TEST(FixedPointTest, FixedPointNegationWorks)
+{
+    float a = 167.123456789123456;
+    float epsilon = 1.f / static_cast<float>(1 << 16);
+
+    FixedPoint<16, 16> aFixed(a);
+    FixedPoint<16, 16> bFixed = -aFixed;
+
+    float result = bFixed.toFloat();
+    float expected = -a;
+    EXPECT_NEAR(result, expected, epsilon);
+}
