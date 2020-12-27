@@ -35,9 +35,13 @@ INSTANTIATE_TEST_SUITE_P(
         0.f,
         1.f,
         3.f,
+        -7.f * M_PI / 8.f,
+        -3.f * M_PI / 4.f,
+        -M_PI / 2.f,
         M_PI / 4.f,
+        M_PI / 2.f,
         3.f * M_PI / 4.f,
-        M_PI,
-        5 * M_PI / 4.f
+        7.f * M_PI / 8.f,
+        M_PI
     )
 );

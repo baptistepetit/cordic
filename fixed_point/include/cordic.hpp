@@ -56,7 +56,7 @@ CordicParameters<LinearType> Cordic<LinearType>::preRotateIntoRange(const Cordic
 {
     CordicParameters<LinearType> rotatedParams;
 
-    if (parameters.targetAngle >= 0 && parameters.targetAngle <= M_PI/4) {
+    if (parameters.targetAngle >= -M_PI/4 && parameters.targetAngle <= M_PI/4) {
         rotatedParams = parameters;
     } else if (parameters.targetAngle >= M_PI/4 && parameters.targetAngle <= 3*M_PI/4) {
         rotatedParams = CordicParameters<LinearType>(
@@ -64,23 +64,23 @@ CordicParameters<LinearType> Cordic<LinearType>::preRotateIntoRange(const Cordic
             parameters.initPosition.x,
             parameters.targetAngle - M_PI / 2
         );
-    } else if (parameters.targetAngle >= 3*M_PI/4 && parameters.targetAngle <= 5*M_PI/4) {
+    } else if (parameters.targetAngle >= 3*M_PI/4 && parameters.targetAngle <= M_PI) {
         rotatedParams = CordicParameters<LinearType>(
             -parameters.initPosition.x,
             -parameters.initPosition.y,
             parameters.targetAngle - M_PI
         );
-    } else if (parameters.targetAngle >= 5*M_PI/4 && parameters.targetAngle <= 7*M_PI/4) {
+    } else if (parameters.targetAngle >= -M_PI && parameters.targetAngle <= -3*M_PI/4) {
         rotatedParams = CordicParameters<LinearType>(
-            parameters.initPosition.y,
             -parameters.initPosition.x,
-            parameters.targetAngle - 3 * M_PI / 2
+            -parameters.initPosition.y,
+            parameters.targetAngle + M_PI
         );
-    } else {  // parameters.targetAngle >= 7*M_PI/4 && parameters.targetAngle <= 2*M_PI
+    } else if (parameters.targetAngle >= -3*M_PI/4 && parameters.targetAngle <= -M_PI/4) {
         rotatedParams = CordicParameters<LinearType>(
-            parameters.initPosition.x,
-            parameters.initPosition.y,
-            parameters.targetAngle - 2 * M_PI
+            -parameters.initPosition.y,
+            -parameters.initPosition.x,
+            parameters.targetAngle + M_PI / 2
         );
     }
 
