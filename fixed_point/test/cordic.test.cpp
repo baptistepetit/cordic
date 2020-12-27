@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 
+#include "angular_fixed_point.hpp"
 #include "cordic.hpp"
 #include "fixed_point.hpp"
 #include "types.hpp"
@@ -9,9 +10,9 @@
 class CordicTest : public testing::TestWithParam<float> {
 protected:
     void SetUp() override {
-        cordic = std::make_unique<Cordic<FixedPoint<16, 16>>>();
+        cordic = std::make_unique<Cordic<FixedPoint<16, 16>, AngularFixedPoint<32>>>();
     };
-    std::unique_ptr<Cordic<FixedPoint<16, 16>>> cordic;
+    std::unique_ptr<Cordic<FixedPoint<16, 16>, AngularFixedPoint<32>>> cordic;
 };
 
 
