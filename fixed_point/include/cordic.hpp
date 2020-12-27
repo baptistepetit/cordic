@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <stdexcept>
 #include <vector>
 
 #include "types.hpp"
@@ -82,6 +83,8 @@ CordicParameters<LinearType> Cordic<LinearType>::preRotateIntoRange(const Cordic
             -parameters.initPosition.x,
             parameters.targetAngle + m_pi / 2
         );
+    } else {
+        throw std::runtime_error("error out of range [-Pi; Pi]");
     }
 
     return rotatedParams;
