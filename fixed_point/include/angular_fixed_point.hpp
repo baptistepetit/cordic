@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <limits>
 #include <type_traits>
 
 #include "types.hpp"
@@ -10,9 +11,18 @@ class AngularFixedPoint {
 public:
     AngularFixedPoint();
     AngularFixedPoint(float _data);
+    AngularFixedPoint(int32_t _data);
     ~AngularFixedPoint() {}
 
     static constexpr float resolution = 2.f * m_pi / std::pow(2.f, B);
+    static constexpr AngularFixedPoint<B> max() {
+        const int32_t maxData = std::numeric_limits<int32_t>::max() >> (32 - B);
+        return AngularFixedPoint<B>(maxData);
+    }
+    static constexpr AngularFixedPoint<B> lowest() {
+        const int32_t lowestData = std::numeric_limits<int32_t>::lowest() >> (32 - B);
+        return AngularFixedPoint<B>(lowestData);
+    }
 
     AngularFixedPoint<B>& operator+= (const AngularFixedPoint<B>& rhs);
     AngularFixedPoint<B>& operator-= (const AngularFixedPoint<B>& rhs);
@@ -37,6 +47,16 @@ AngularFixedPoint<B>::AngularFixedPoint(float _data)
     static_assert(B <= 32, "Up to 32 bits can be used for this AngularFixedPoint implementation.");
 
     data = static_cast<int32_t>((_data) / AngularFixedPoint<B>::resolution);
+    data <<= (32 - B);
+    data >>= (32 - B);
+}
+
+template<int B>
+AngularFixedPoint<B>::AngularFixedPoint(int32_t _data)
+{
+    static_assert(B <= 32, "Up to 32 bits can be used for this AngularFixedPoint implementation.");
+
+    data = _data;
     data <<= (32 - B);
     data >>= (32 - B);
 }

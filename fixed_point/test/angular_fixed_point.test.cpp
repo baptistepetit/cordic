@@ -52,6 +52,27 @@ TEST(AngularFixedPointTest, AngleIsCyclic)
     EXPECT_NEAR(result, expected, epsilon);
 }
 
+TEST(AngularFixedPointTest, AngleIsCyclicPiIsExcluded)
+{
+    float input = m_pi;
+    float expected = -m_pi;
+    float epsilon = 2.f * m_pi / std::pow(2.f, 30);
+
+    AngularFixedPoint<31> fixed(input);
+    float result = fixed.toFloat();
+    EXPECT_NEAR(result, expected, epsilon);
+}
+
+TEST(AngularFixedPointTest, AngleIsCyclicRangeIsPiMinusPi)
+{
+    float expectedLowest = -m_pi;
+    float expectedMax = m_pi;
+    float epsilon = 2.f * m_pi / std::pow(2.f, 14);
+
+    EXPECT_NEAR(AngularFixedPoint<15>::max().toFloat(), expectedMax, epsilon);
+    EXPECT_NEAR(AngularFixedPoint<15>::lowest().toFloat(), expectedLowest, epsilon);
+}
+
 TEST(AngularFixedPointTest, SubstractionWorks)
 {
     float a = 2.f;
