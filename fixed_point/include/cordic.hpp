@@ -20,8 +20,8 @@ private:
     LinearType gain;
     std::vector<float> angleLut;
 
-    CordicParameters<LinearType> preRotateIntoRange(const CordicParameters<LinearType> &parameters);
-    Position<LinearType> calculateCordicRotation(const CordicParameters<LinearType> &parameters);
+    CordicParameters<LinearType, float> preRotateIntoRange(const CordicParameters<LinearType, float> &parameters);
+    Position<LinearType> calculateCordicRotation(const CordicParameters<LinearType, float> &parameters);
 };
 
 template <typename LinearType>
@@ -53,32 +53,32 @@ Cordic<LinearType>::~Cordic()
 }
 
 template <typename LinearType>
-CordicParameters<LinearType> Cordic<LinearType>::preRotateIntoRange(const CordicParameters<LinearType> &parameters)
+CordicParameters<LinearType, float> Cordic<LinearType>::preRotateIntoRange(const CordicParameters<LinearType, float> &parameters)
 {
-    CordicParameters<LinearType> rotatedParams;
+    CordicParameters<LinearType, float> rotatedParams;
 
     if (parameters.targetAngle >= -m_pi/4 && parameters.targetAngle <= m_pi/4) {
         rotatedParams = parameters;
     } else if (parameters.targetAngle >= m_pi/4 && parameters.targetAngle <= 3*m_pi/4) {
-        rotatedParams = CordicParameters<LinearType>(
+        rotatedParams = CordicParameters<LinearType, float>(
             -parameters.initPosition.y,
             parameters.initPosition.x,
             parameters.targetAngle - m_pi / 2
         );
     } else if (parameters.targetAngle >= 3*m_pi/4 && parameters.targetAngle <= m_pi) {
-        rotatedParams = CordicParameters<LinearType>(
+        rotatedParams = CordicParameters<LinearType, float>(
             -parameters.initPosition.x,
             -parameters.initPosition.y,
             parameters.targetAngle - m_pi
         );
     } else if (parameters.targetAngle >= -m_pi && parameters.targetAngle <= -3*m_pi/4) {
-        rotatedParams = CordicParameters<LinearType>(
+        rotatedParams = CordicParameters<LinearType, float>(
             -parameters.initPosition.x,
             -parameters.initPosition.y,
             parameters.targetAngle + m_pi
         );
     } else if (parameters.targetAngle >= -3*m_pi/4 && parameters.targetAngle <= -m_pi/4) {
-        rotatedParams = CordicParameters<LinearType>(
+        rotatedParams = CordicParameters<LinearType, float>(
             -parameters.initPosition.y,
             -parameters.initPosition.x,
             parameters.targetAngle + m_pi / 2
@@ -91,7 +91,7 @@ CordicParameters<LinearType> Cordic<LinearType>::preRotateIntoRange(const Cordic
 }
 
 template <typename LinearType>
-Position<LinearType> Cordic<LinearType>::calculateCordicRotation(const CordicParameters<LinearType> &parameters)
+Position<LinearType> Cordic<LinearType>::calculateCordicRotation(const CordicParameters<LinearType, float> &parameters)
 {
     Position<LinearType> position(parameters.initPosition.x, parameters.initPosition.y);
     float phase = parameters.targetAngle;
@@ -114,7 +114,7 @@ Position<LinearType> Cordic<LinearType>::calculateCordicRotation(const CordicPar
 template <typename LinearType>
 CosSinPair<LinearType> Cordic<LinearType>::calculateCordicCosine(const float &targetAngle)
 {
-    const CordicParameters<LinearType> parameters(gain, LinearType(0), targetAngle);
+    const CordicParameters<LinearType, float> parameters(gain, LinearType(0), targetAngle);
     const Position<LinearType> rotatedPosition = calculateCordicRotation(
         preRotateIntoRange(parameters)
     );

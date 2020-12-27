@@ -4,29 +4,29 @@
 
 constexpr float m_pi = M_PI;
 
-template<typename T>
+template<typename LinearType>
 class Position
 {
 public:
     Position() {}
-    Position(T _x, T _y)
+    Position(LinearType _x, LinearType _y)
     {
         x = _x;
         y = _y;
     }
     ~Position() {}
 
-    T x;
-    T y;
+    LinearType x;
+    LinearType y;
 };
 
-template<typename T>
+template<typename LinearType, typename AngularType>
 class CordicParameters
 {
 public:
     CordicParameters() {}
 
-    CordicParameters(T _xInit, T _yInit, float _targetAngle)
+    CordicParameters(LinearType _xInit, LinearType _yInit, AngularType _targetAngle)
     {
         initPosition.x = _xInit;
         initPosition.y = _yInit;
@@ -34,22 +34,22 @@ public:
     }
     ~CordicParameters() {}
 
-    Position<T> initPosition;
-    float targetAngle;
+    Position<LinearType> initPosition;
+    AngularType targetAngle;
 };
 
-template<typename T>
+template<typename LinearType>
 class CosSinPair
 {
 public:
     CosSinPair() {}
-    CosSinPair(T _cos, T _sin)
+    CosSinPair(LinearType _cos, LinearType _sin)
     {
         cos = _cos;
         sin = _sin;
     }
     ~CosSinPair() {}
 
-    T cos;
-    T sin;
+    LinearType cos;
+    LinearType sin;
 };
