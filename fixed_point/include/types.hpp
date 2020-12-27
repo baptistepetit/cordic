@@ -1,5 +1,9 @@
 #pragma once
 
+#include <cmath>
+
+constexpr float m_pi = M_PI;
+
 template<typename T>
 class Position
 {

@@ -1,8 +1,9 @@
 #pragma once
 
-#include <cmath>
 #include <cstdint>
 #include <type_traits>
+
+#include "types.hpp"
 
 template<int B>
 class AngularFixedPoint {
@@ -11,7 +12,7 @@ public:
     AngularFixedPoint(float _data);
     ~AngularFixedPoint() {}
 
-    static constexpr float resolution = 2.f * M_PI / std::pow(2.f, B);
+    static constexpr float resolution = 2.f * m_pi / std::pow(2.f, B);
 
     AngularFixedPoint<B>& operator+= (const AngularFixedPoint<B>& rhs);
     AngularFixedPoint<B>& operator-= (const AngularFixedPoint<B>& rhs);

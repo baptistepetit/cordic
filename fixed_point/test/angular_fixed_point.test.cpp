@@ -6,9 +6,9 @@
 
 TEST(AngularFixedPointTest, ValueIsConserved)
 {
-    float input = M_PI / 2.f;
-    float expected = M_PI / 2.f;
-    float epsilon = 2.f * M_PI / std::pow(2.f, 30);
+    float input = m_pi / 2.f;
+    float expected = m_pi / 2.f;
+    float epsilon = 2.f * m_pi / std::pow(2.f, 30);
 
     AngularFixedPoint<31> fixed(input);
     float result = fixed.toFloat();
@@ -18,9 +18,9 @@ TEST(AngularFixedPointTest, ValueIsConserved)
 
 TEST(AngularFixedPointTest, NegativeValueIsConserved)
 {
-    float input = -M_PI * 3.f / 4.f;
-    float expected = -M_PI * 3.f / 4.f;
-    float epsilon = 2.f * M_PI / std::pow(2.f, 30);
+    float input = -m_pi * 3.f / 4.f;
+    float expected = -m_pi * 3.f / 4.f;
+    float epsilon = 2.f * m_pi / std::pow(2.f, 30);
 
     AngularFixedPoint<31> fixed(input);
     float result = fixed.toFloat();
@@ -32,7 +32,7 @@ TEST(AngularFixedPointTest, ZeroIsConserved)
 {
     float input = 0;
     float expected = 0;
-    float epsilon = 2.f * M_PI / std::pow(2.f, 30);
+    float epsilon = 2.f * m_pi / std::pow(2.f, 30);
 
     AngularFixedPoint<31> fixed(input);
     float result = fixed.toFloat();
@@ -43,9 +43,9 @@ TEST(AngularFixedPointTest, ZeroIsConserved)
 
 TEST(AngularFixedPointTest, AngleIsCyclic)
 {
-    float input = M_PI * 7.f / 4.f;
-    float expected = - M_PI / 4.f;
-    float epsilon = 2.f * M_PI / std::pow(2.f, 30);
+    float input = m_pi * 7.f / 4.f;
+    float expected = - m_pi / 4.f;
+    float epsilon = 2.f * m_pi / std::pow(2.f, 30);
 
     AngularFixedPoint<31> fixed(input);
     float result = fixed.toFloat();
@@ -56,7 +56,7 @@ TEST(AngularFixedPointTest, SubstractionWorks)
 {
     float a = 2.f;
     float b = 1.f;
-    float epsilon = 2.f * M_PI / std::pow(2.f, 30);
+    float epsilon = 2.f * m_pi / std::pow(2.f, 30);
 
     AngularFixedPoint<31> aFixed(a);
     AngularFixedPoint<31> bFixed(b);
@@ -69,10 +69,10 @@ TEST(AngularFixedPointTest, SubstractionWorks)
 
 TEST(AngularFixedPointTest, SubstractionIsCyclic)
 {
-    float a = -M_PI * 3.f / 4.f;
-    float b = M_PI;
-    float expected = M_PI / 4.f;
-    float epsilon = 2.f * M_PI / std::pow(2.f, 30);
+    float a = -m_pi * 3.f / 4.f;
+    float b = m_pi;
+    float expected = m_pi / 4.f;
+    float epsilon = 2.f * m_pi / std::pow(2.f, 30);
 
     AngularFixedPoint<31> aFixed(a);
     AngularFixedPoint<31> bFixed(b);
@@ -85,7 +85,7 @@ TEST(AngularFixedPointTest, SubstractionIsCyclic)
 TEST(AngularFixedPointTest, NegateWorks)
 {
     float a = 2.f;
-    float epsilon = 2.f * M_PI / std::pow(2.f, 30);
+    float epsilon = 2.f * m_pi / std::pow(2.f, 30);
 
     AngularFixedPoint<31> aFixed(a);
     AngularFixedPoint<31> cFixed = -aFixed;
@@ -97,10 +97,10 @@ TEST(AngularFixedPointTest, NegateWorks)
 
 TEST(AngularFixedPointTest, SubstractionIsCyclicLowerResolution)
 {
-    float a = -M_PI * 3.f / 4.f;
-    float b = M_PI;
-    float expected = M_PI / 4.f;
-    float epsilon = 2.f * M_PI / std::pow(2.f, 15);
+    float a = -m_pi * 3.f / 4.f;
+    float b = m_pi;
+    float expected = m_pi / 4.f;
+    float epsilon = 2.f * m_pi / std::pow(2.f, 15);
 
     AngularFixedPoint<15> aFixed(a);
     AngularFixedPoint<15> bFixed(b);
@@ -112,8 +112,8 @@ TEST(AngularFixedPointTest, SubstractionIsCyclicLowerResolution)
 
 TEST(AngularFixedPointTest, IsInferiorWorks)
 {
-    float a = M_PI / 2.f;
-    float b = M_PI * 3.f / 4.f;
+    float a = m_pi / 2.f;
+    float b = m_pi * 3.f / 4.f;
     bool expected =  a <= b;
 
     AngularFixedPoint<15> aFixed(a);
@@ -124,8 +124,8 @@ TEST(AngularFixedPointTest, IsInferiorWorks)
 
 TEST(AngularFixedPointTest, IsSuperiorWorks)
 {
-    float a = M_PI / 2.f;
-    float b = M_PI * 3.f / 4.f;
+    float a = m_pi / 2.f;
+    float b = m_pi * 3.f / 4.f;
     bool expected =  a >= b;
 
     AngularFixedPoint<15> aFixed(a);
