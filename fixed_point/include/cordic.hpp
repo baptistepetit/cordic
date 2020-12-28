@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "types.hpp"
-#include "utils.hpp"
 
 template <typename LinearType, typename AngularType>
 class Cordic
@@ -99,11 +98,16 @@ Position<LinearType> Cordic<LinearType, AngularType>::calculateCordicRotation(co
     for (unsigned i = 0; i < angleLut.size(); i++) {
         Position<LinearType> positionNext;
         AngularType phaseNext;
-        float sign = phase >= 0 ? 1.f : -1.f;
 
-        positionNext.x = position.x - multiplyBySignOf<LinearType>(sign, (position.y >> i));
-        positionNext.y = position.y + multiplyBySignOf<LinearType>(sign, (position.x >> i));
-        phaseNext = phase - multiplyBySignOf<AngularType>(sign, angleLut.at(i));
+        if (phase >= 0) {
+            positionNext.x = position.x - (position.y >> i);
+            positionNext.y = position.y + (position.x >> i);
+            phaseNext = phase - angleLut.at(i);
+        } else {
+            positionNext.x = position.x + (position.y >> i);
+            positionNext.y = position.y - (position.x >> i);
+            phaseNext = phase + angleLut.at(i);
+        }
 
         position = positionNext;
         phase = phaseNext;
