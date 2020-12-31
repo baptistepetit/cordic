@@ -9,11 +9,10 @@ class Position
 {
 public:
     Position() {}
-    Position(LinearType _x, LinearType _y)
-    {
-        x = _x;
-        y = _y;
-    }
+    Position(LinearType _x, LinearType _y):
+    x(_x),
+    y(_y)
+    {}
     ~Position() {}
 
     LinearType x;
@@ -26,12 +25,10 @@ class CordicParameters
 public:
     CordicParameters() {}
 
-    CordicParameters(LinearType _xInit, LinearType _yInit, AngularType _targetAngle)
-    {
-        initPosition.x = _xInit;
-        initPosition.y = _yInit;
-        targetAngle = _targetAngle;
-    }
+    CordicParameters(LinearType _xInit, LinearType _yInit, AngularType _targetAngle):
+    initPosition(_xInit, _yInit),
+    targetAngle(_targetAngle)
+    {}
     ~CordicParameters() {}
 
     Position<LinearType> initPosition;
@@ -43,11 +40,10 @@ class CosSinPair
 {
 public:
     CosSinPair() {}
-    CosSinPair(LinearType _cos, LinearType _sin)
-    {
-        cos = _cos;
-        sin = _sin;
-    }
+    CosSinPair(LinearType _cos, LinearType _sin):
+    cos(_cos),
+    sin(_sin)
+    {}
     ~CosSinPair() {}
 
     LinearType cos;

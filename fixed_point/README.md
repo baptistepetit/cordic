@@ -15,6 +15,9 @@ The following software is required on your machine:
 * gcc >= 6.1
 * googletest (tested with official ubuntu debian package version 1.10.0-2)
 
+Optional:
+* cppcheck (tested with official ubuntu debian package version 1.90-4build1)
+
 **Note:** This CMake configuration was tested under Ubuntu 20.04. The application compilation should pose no problems on any platforms. However, the unit test configuration in CMake is relying on the way GoogleTest is setup on your computer and may need modifications to run on your platform.
 
 
@@ -41,4 +44,11 @@ make run
 In this folder, run:
 ```bash
 make test
+```
+
+### Running cppcheck
+
+If you installed cppcheck on your computer you can analyse the source files here by running the command in this folder:
+```bash
+make check
 ```

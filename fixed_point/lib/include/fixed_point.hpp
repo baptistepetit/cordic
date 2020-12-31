@@ -8,7 +8,7 @@ template<int M, int F>
 class FixedPoint {
 public:
     FixedPoint();
-    FixedPoint(float _data);
+    explicit FixedPoint(float _data);
     ~FixedPoint() {}
 
     static constexpr float resolution = 1.f / std::pow(2.f, F);

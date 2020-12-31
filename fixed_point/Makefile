@@ -1,4 +1,4 @@
-.PHONY: all test clean build clean
+.PHONY: all test check clean build clean
 
 all: build
 
@@ -7,6 +7,9 @@ run: build
 
 test: build
 	cd build/lib/ && ./cordic-lib-test
+
+check:
+	cppcheck -I lib/include/ app/include/ app/src/ --enable=all --suppress=missingIncludeSystem
 
 build:
 	mkdir -p build && cd build && cmake .. && make

@@ -10,8 +10,8 @@ template<int B>
 class AngularFixedPoint {
 public:
     AngularFixedPoint();
-    AngularFixedPoint(float _data);
-    AngularFixedPoint(int32_t _data);
+    explicit AngularFixedPoint(float _data);
+    explicit AngularFixedPoint(int32_t _data);
     ~AngularFixedPoint() {}
 
     static constexpr float resolution = 2.f * m_pi / std::pow(2.f, B);
