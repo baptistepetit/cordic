@@ -14,7 +14,7 @@ public:
     explicit AngularFixedPoint(int32_t _data);
     ~AngularFixedPoint() {}
 
-    static constexpr float resolution = 2.f * m_pi / std::pow(2.f, B);
+    static constexpr float resolution = 2.f * m_pi / powf(2, B);
     static constexpr AngularFixedPoint<B> max() {
         const int32_t maxData = std::numeric_limits<int32_t>::max() >> (32 - B);
         return AngularFixedPoint<B>(maxData);

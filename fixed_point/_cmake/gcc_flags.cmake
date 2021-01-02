@@ -1,0 +1,16 @@
+set(
+    GCC_WARNING_FLAGS
+    -Wall
+    -Wextra
+    -Werror
+    -pedantic
+    -Wconversion
+    -Wduplicated-cond
+    -Wduplicated-branches
+    -Wlogical-op
+    -Wnull-dereference
+    -Wold-style-cast
+    -Wuseless-cast
+    -Wdouble-promotion
+    -Wshadow
+)

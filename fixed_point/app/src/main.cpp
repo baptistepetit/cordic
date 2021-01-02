@@ -9,7 +9,7 @@
 
 constexpr unsigned simulationSteps = 5000000;
 
-int main(int argc, char **argv) {
+int main() {
     std::unique_ptr<Cordic<FixedPoint<16, 16>, AngularFixedPoint<32>>> cordic =
         std::make_unique<Cordic<FixedPoint<16, 16>, AngularFixedPoint<32>>>();
 
@@ -17,18 +17,18 @@ int main(int argc, char **argv) {
     float standardDeviation = 0;
     for (unsigned i = 0; i < simulationSteps; i++) {
         float currentValue =
-            static_cast<float>(i) / static_cast<float>(simulationSteps) * 2 * m_pi - m_pi;
+            static_cast<float>(i) / static_cast<float>(simulationSteps) * 2.f * m_pi - m_pi;
         CosSinPair<FixedPoint<16, 16>> cosSin = cordic->calculateCordicCosine(currentValue);
-        float cmathCosDifference = (cos(currentValue) - cosSin.cos.toFloat());
-        float cmathSinDifference = (sin(currentValue) - cosSin.sin.toFloat());
+        float cmathCosDifference = (cosf(currentValue) - cosSin.cos.toFloat());
+        float cmathSinDifference = (sinf(currentValue) - cosSin.sin.toFloat());
         error += cmathCosDifference;
         error += cmathSinDifference;
-        standardDeviation += std::pow(cmathCosDifference, 2);
-        standardDeviation += std::pow(cmathSinDifference, 2);
+        standardDeviation += powf(cmathCosDifference, 2);
+        standardDeviation += powf(cmathSinDifference, 2);
     }
     error /= static_cast<float>(2 * simulationSteps);
     standardDeviation /= static_cast<float>(2 * simulationSteps);
-    standardDeviation = std::sqrt(standardDeviation);
+    standardDeviation = sqrtf(standardDeviation);
 
     std::cout
         << "Mean error compared with cmath sin and cos over " << simulationSteps

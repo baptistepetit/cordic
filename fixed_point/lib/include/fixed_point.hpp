@@ -11,7 +11,7 @@ public:
     explicit FixedPoint(float _data);
     ~FixedPoint() {}
 
-    static constexpr float resolution = 1.f / std::pow(2.f, F);
+    static constexpr float resolution = 1.f / powf(2, F);
 
     FixedPoint<M, F>& operator+= (const FixedPoint<M, F>& rhs);
     FixedPoint<M, F>& operator-= (const FixedPoint<M, F>& rhs);

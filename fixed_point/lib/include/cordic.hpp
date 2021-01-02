@@ -26,7 +26,7 @@ private:
 template <typename LinearType, typename AngularType>
 Cordic<LinearType, AngularType>::Cordic()
 {
-    gain = LinearType(0.6072529353859136);
+    gain = LinearType(static_cast<float>(0.6072529353859136));
     angleLut = std::vector<AngularType>({
         AngularType(static_cast<float>(0.7853981633974483)),
         AngularType(static_cast<float>(0.4636476090008061)),

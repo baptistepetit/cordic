@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-constexpr float m_pi = M_PI;
+constexpr float m_pi = static_cast<float>(M_PI);
 
 template<typename LinearType>
 class Position
