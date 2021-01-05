@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 #include "gtest/gtest.h"
 
@@ -153,4 +154,44 @@ TEST(AngularFixedPointTest, IsSuperiorWorks)
     bool result = aFixed >= b;
 
     EXPECT_EQ(result, expected);
+}
+
+TEST(AngularFixedPointTest, StreamOperatorWorksForPositiveValue7Bits)
+{
+    std::stringstream result;
+    std::string expected = "16#03#";
+
+    result << AngularFixedPoint<7>(3);
+
+    EXPECT_EQ(result.str(), expected);
+}
+
+TEST(AngularFixedPointTest, StreamOperatorWorksForPositiveValue8Bits)
+{
+    std::stringstream result;
+    std::string expected = "16#03#";
+
+    result << AngularFixedPoint<8>(3);
+
+    EXPECT_EQ(result.str(), expected);
+}
+
+TEST(AngularFixedPointTest, StreamOperatorWorksForNegativeValue7Bits)
+{
+    std::stringstream result;
+    std::string expected = "16#7D#";
+
+    result << AngularFixedPoint<7>(-3);
+
+    EXPECT_EQ(result.str(), expected);
+}
+
+TEST(AngularFixedPointTest, StreamOperatorWorksForNegativeValue8Bits)
+{
+    std::stringstream result;
+    std::string expected = "16#FD#";
+
+    result << AngularFixedPoint<8>(-3);
+
+    EXPECT_EQ(result.str(), expected);
 }

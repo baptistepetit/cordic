@@ -1,10 +1,12 @@
 #pragma once
 
 #include <cstdint>
+#include <iostream>
 #include <limits>
 #include <type_traits>
 
 #include "types.hpp"
+#include "utils.hpp"
 
 template<int B>
 class AngularFixedPoint {
@@ -153,4 +155,11 @@ inline bool operator>= (AngularFixedPoint<B> lhs, const float& rhs)
 {
     AngularFixedPoint<B> rhsFixed = AngularFixedPoint<B>(rhs);
     return lhs >= rhsFixed;
+}
+
+template<int B>
+inline std::ostream& operator<< (std::ostream& os, const AngularFixedPoint<B> &rhs)
+{
+    os << "16#" << toHexString<B>(rhs.getRaw()) << "#";
+    return os;
 }

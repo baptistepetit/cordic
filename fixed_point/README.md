@@ -32,7 +32,7 @@ To get ready simply run from this folder:
 make -j
 ```
 
-### Running the app
+### Running the apps
 
 In this folder, run:
 ```bash
