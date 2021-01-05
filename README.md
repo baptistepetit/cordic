@@ -1,5 +1,6 @@
 # A naive CORDIC implementation
 
+[![main_ci](https://img.shields.io/github/workflow/status/baptistepetit/cordic/Main%20Branch%20Event)](https://github.com/baptistepetit/cordic/actions?query=workflow%3A%22Main+Branch+Event%22)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![License](https://img.shields.io/github/license/baptistepetit/cordic)](LICENSE)
 

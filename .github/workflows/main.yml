@@ -1,0 +1,58 @@
+name: Main Branch Event
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  poc-build:
+    defaults:
+      run:
+        working-directory: poc
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm ci
+    - name: Test building the application
+      run: npm run build
+    - name: Run the unit tests
+      run: npm test
+
+  fp-cppcheck:
+    defaults:
+      run:
+        working-directory: fixed_point
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install cppcheck
+      run: sudo apt-get install cppcheck -y
+    - name: Run an analysis of the code
+      run: make check
+
+  fp-build:
+    defaults:
+      run:
+        working-directory: fixed_point
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install googletest
+      run: sudo apt-get install googletest libgtest-dev -y
+    - name: Compile the code
+      run: make -j
+    - name: Run the Unit Tests
+      run: make test
