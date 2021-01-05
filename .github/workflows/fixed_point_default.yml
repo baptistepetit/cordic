@@ -1,0 +1,32 @@
+name: Fixed Point Default
+
+on:
+  push:
+    paths:
+    - 'fixed_point/**'
+    - '!fixed_point/README.md'
+
+defaults:
+  run:
+    working-directory: fixed_point
+    shell: bash
+
+jobs:
+  cppcheck:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install cppcheck
+      run: sudo apt-get install cppcheck -y
+    - name: Run an analysis of the code
+      run: make check
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install googletest
+      run: sudo apt-get install googletest libgtest-dev -y
+    - name: Compile the code
+      run: make -j
+    - name: Run the Unit Tests
+      run: make test
