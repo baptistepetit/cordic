@@ -132,6 +132,12 @@ inline AngularFixedPoint<B> operator- (const AngularFixedPoint<B>& rhs)
 }
 
 template<int B>
+inline bool operator== (AngularFixedPoint<B> lhs, const AngularFixedPoint<B>& rhs)
+{
+    return lhs.getRaw() == rhs.getRaw();
+}
+
+template<int B>
 inline bool operator<= (AngularFixedPoint<B> lhs, const AngularFixedPoint<B>& rhs)
 {
     return lhs.getRaw() <= rhs.getRaw();

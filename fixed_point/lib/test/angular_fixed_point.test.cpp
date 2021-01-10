@@ -132,6 +132,20 @@ TEST(AngularFixedPointTest, SubstractionIsCyclicLowerResolution)
     EXPECT_NEAR(result, expected, epsilon);
 }
 
+TEST(AngularFixedPointTest, IsEqualWorks)
+{
+    float a = m_pi / 2.f;
+    float b = m_pi / 2.f;
+    float c = m_pi * 3.f / 4.f;
+
+    AngularFixedPoint<15> aFixed(a);
+    AngularFixedPoint<15> bFixed(b);
+    AngularFixedPoint<15> cFixed(c);
+
+    EXPECT_TRUE(aFixed == bFixed);
+    EXPECT_FALSE(aFixed == cFixed);
+}
+
 TEST(AngularFixedPointTest, IsInferiorWorks)
 {
     float a = m_pi / 2.f;

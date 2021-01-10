@@ -130,3 +130,9 @@ inline std::ostream& operator<< (std::ostream& os, const FixedPoint<M, F>& rhs)
     os << "16#" << toHexString<M+F>(rhs.getRaw()) << "#";
     return os;
 }
+
+template<int M, int F>
+inline bool operator== (FixedPoint<M, F> lhs, const FixedPoint<M, F>& rhs)
+{
+    return lhs.getRaw() == rhs.getRaw();
+}

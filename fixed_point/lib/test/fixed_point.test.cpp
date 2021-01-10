@@ -181,3 +181,17 @@ TEST(FixedPointTest, StreamOperatorWorksForNegativeValue8Bits)
 
     EXPECT_EQ(result.str(), expected);
 }
+
+TEST(FixedPointTest, IsEqualWorks)
+{
+    float a = 1.2f;
+    float b = 1.2f;
+    float c = 3.f;
+
+    FixedPoint<10, 10> aFixed(a);
+    FixedPoint<10, 10> bFixed(b);
+    FixedPoint<10, 10> cFixed(c);
+
+    EXPECT_TRUE(aFixed == bFixed);
+    EXPECT_FALSE(aFixed == cFixed);
+}
