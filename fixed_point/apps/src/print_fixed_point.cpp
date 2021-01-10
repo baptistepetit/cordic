@@ -1,17 +1,31 @@
 #include <iostream>
+#include <vector>
 
 #include "angular_fixed_point.hpp"
 #include "fixed_point.hpp"
+#include "generate_constants.hpp"
 #include "types.hpp"
+
+typedef AngularFixedPoint<15> Angular;
+typedef FixedPoint<2, 13> Linear;
 
 int main() {
 
-    std::cout << AngularFixedPoint<15>::max() << std::endl;
-    std::cout << AngularFixedPoint<15>::lowest() << std::endl;
-    std::cout << AngularFixedPoint<15>(m_pi / 2.f) << std::endl;
-    std::cout
-        << FixedPoint<2, 13>(static_cast<float>(0.6072529353859136))
-        << std::endl;
+    constexpr unsigned cordicIterations = 12;
+    const std::vector<Angular> angleLut =
+        generateAngleLut<Angular>(cordicIterations);
+    const Linear cordicGain = generateCordicGain<Linear>(cordicIterations);
+
+    std::cout << "Angular::max() " << Angular::max() << std::endl;
+    std::cout << "Angular::lowest() " << Angular::lowest() << std::endl;
+
+    std::cout << "Cordic Angles are :" << std::endl;
+    for (unsigned i = 0; i < angleLut.size(); i++) {
+        std::cout << "Angle " << i
+            << " is " << angleLut.at(i)
+            << std::endl;
+    }
+    std::cout << "Cordic Gain is " << cordicGain << std::endl;
 
     return 0;
 }
