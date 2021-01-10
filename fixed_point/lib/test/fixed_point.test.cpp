@@ -141,3 +141,57 @@ TEST(FixedPointTest, FixedPointNegationWorks)
     float expected = -a;
     EXPECT_NEAR(result, expected, epsilon);
 }
+
+TEST(FixedPointTest, StreamOperatorWorksForPositiveValue7Bits)
+{
+    std::stringstream result;
+    std::string expected = "16#03#";
+
+    result << FixedPoint<7, 0>(3.f);
+
+    EXPECT_EQ(result.str(), expected);
+}
+
+TEST(FixedPointTest, StreamOperatorWorksForPositiveValue8Bits)
+{
+    std::stringstream result;
+    std::string expected = "16#03#";
+
+    result << FixedPoint<8, 0>(3.f);
+
+    EXPECT_EQ(result.str(), expected);
+}
+
+TEST(FixedPointTest, StreamOperatorWorksForNegativeValue7Bits)
+{
+    std::stringstream result;
+    std::string expected = "16#7D#";
+
+    result << FixedPoint<7, 0>(-3.f);
+
+    EXPECT_EQ(result.str(), expected);
+}
+
+TEST(FixedPointTest, StreamOperatorWorksForNegativeValue8Bits)
+{
+    std::stringstream result;
+    std::string expected = "16#FD#";
+
+    result << FixedPoint<8, 0>(-3.f);
+
+    EXPECT_EQ(result.str(), expected);
+}
+
+TEST(FixedPointTest, IsEqualWorks)
+{
+    float a = 1.2f;
+    float b = 1.2f;
+    float c = 3.f;
+
+    FixedPoint<10, 10> aFixed(a);
+    FixedPoint<10, 10> bFixed(b);
+    FixedPoint<10, 10> cFixed(c);
+
+    EXPECT_TRUE(aFixed == bFixed);
+    EXPECT_FALSE(aFixed == cFixed);
+}
