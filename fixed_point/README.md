@@ -1,10 +1,12 @@
 # CORDIC Cos/Sin Fixed Point Implementation
 
-This standalone cpp library implements the CORDIC algorithm to calculate cos and sin functions with fixed point arithmetic. An application using the library and estimating error to standard cpp implementation for several data width is also provided.
+This standalone cpp library implements the CORDIC algorithm to calculate cos and sin functions with fixed point arithmetic.
+
+Two applications are also provided. The first app is using the library and estimating error to standard cpp implementation for several data width. The second one prints hexadecimal representation of several constants used in the algorithm.
 
 Implementation and basic testing related to CORDIC is in the `lib/` folder as a header only library.
 
-Application headers and source files are stored the `app/` folder.
+Application headers and source files are stored the `apps/` folder.
 
 
 ## Prerequisistes
@@ -13,7 +15,8 @@ The following software is required on your machine:
 
 * CMake >= 3.9
 * gcc >= 6.1
-* googletest (tested with official ubuntu debian package version 1.10.0-2)
+* googletest (tested with official ubuntu debian packages version 1.10.0-2)
+* google-mock(tested with official ubuntu debian packages version 1.10.0-2)
 
 Optional:
 * cppcheck (tested with official ubuntu debian package version 1.90-4build1)
@@ -32,11 +35,21 @@ To get ready simply run from this folder:
 make -j
 ```
 
-### Running the app
+### Running the apps
 
-In this folder, run:
+To run all the apps, in this folder, run:
 ```bash
 make run
+```
+
+To run the app measuring cordic error based on cmath, run:
+```bash
+make run_measure
+```
+
+To run the app printing fixed point constants used in implementation, run:
+```bash
+make run_print
 ```
 
 ### Running the unit tests

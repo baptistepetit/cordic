@@ -28,5 +28,5 @@ add_executable(
     ${TEST_SOURCES}
 )
 
-target_link_libraries(cordic-lib-test gtest pthread cordic-lib)
+target_link_libraries(cordic-lib-test gtest gmock pthread cordic-lib)
 gtest_add_tests(TARGET cordic-lib-test)
