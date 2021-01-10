@@ -10,14 +10,14 @@
 #include "types.hpp"
 
 template<int M, int F, int B>
-inline void measureCordicError(const int _measureNumber = -1) {
+inline void measureCordicError(const unsigned cordicIterations, const int _measureNumber = -1) {
     unsigned measureNumber = _measureNumber;
     if (_measureNumber == -1) {
         measureNumber = static_cast<unsigned>(1.f / AngularFixedPoint<B>::resolution);
     }
 
     std::unique_ptr<Cordic<FixedPoint<M, F>, AngularFixedPoint<B>>> cordic =
-        std::make_unique<Cordic<FixedPoint<M, F>, AngularFixedPoint<B>>>();
+        std::make_unique<Cordic<FixedPoint<M, F>, AngularFixedPoint<B>>>(cordicIterations);
 
     float error = 0;
     float standardDeviation = 0;
@@ -42,6 +42,8 @@ inline void measureCordicError(const int _measureNumber = -1) {
         << M << "." << F << " bits" << std::endl
         << " Angular Fixed Point is represented with "
         << B << " bits" << std::endl
+        << " Cordic Iterations used: "
+        << cordicIterations << std::endl
         << "####################################################"
         << std::endl;
 

@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <vector>
 
+#include "generate_constants.hpp"
 #include "types.hpp"
 
 template <typename LinearType, typename AngularType>
@@ -11,6 +12,7 @@ class Cordic
 {
 public:
     Cordic();
+    Cordic(unsigned iterations);
     ~Cordic();
 
     CosSinPair<LinearType> calculateCordicCosine(const float &targetAngle);
@@ -26,24 +28,16 @@ private:
 template <typename LinearType, typename AngularType>
 Cordic<LinearType, AngularType>::Cordic()
 {
-    gain = LinearType(static_cast<float>(0.6072529353859136));
-    angleLut = std::vector<AngularType>({
-        AngularType(static_cast<float>(0.7853981633974483)),
-        AngularType(static_cast<float>(0.4636476090008061)),
-        AngularType(static_cast<float>(0.24497866312686414)),
-        AngularType(static_cast<float>(0.12435499454676144)),
-        AngularType(static_cast<float>(0.06241880999595735)),
-        AngularType(static_cast<float>(0.031239833430268277)),
-        AngularType(static_cast<float>(0.015623728620476831)),
-        AngularType(static_cast<float>(0.007812341060101111)),
-        AngularType(static_cast<float>(0.0039062301319669718)),
-        AngularType(static_cast<float>(0.0019531225164788188)),
-        AngularType(static_cast<float>(0.0009765621895593195)),
-        AngularType(static_cast<float>(0.0004882812111948983)),
-        AngularType(static_cast<float>(0.00024414062014936177)),
-        AngularType(static_cast<float>(0.00012207031189367021)),
-        AngularType(static_cast<float>(0.00006103515617420877))
-    });
+    const unsigned defaultIterationNb = 15;
+    gain = generateCordicGain<LinearType>(defaultIterationNb);
+    angleLut = generateAngleLut<AngularType>(defaultIterationNb);
+}
+
+template <typename LinearType, typename AngularType>
+Cordic<LinearType, AngularType>::Cordic(unsigned iterations)
+{
+    gain = generateCordicGain<LinearType>(iterations);
+    angleLut = generateAngleLut<AngularType>(iterations);
 }
 
 template <typename LinearType, typename AngularType>
