@@ -10,6 +10,9 @@ run_measure: build
 run_print: build
 	cd build && ./apps/print-fixed-point-app
 
+generate: build
+	cd build && ./apps/generate-cordic-pipeline-app
+
 test: build
 	cd build/lib/ && ./cordic-lib-test
 
