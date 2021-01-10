@@ -2,8 +2,13 @@
 
 all: build
 
-run: build
+run: run_measure run_print
+
+run_measure: build
 	cd build && ./apps/measure-error-app
+
+run_print: build
+	cd build && ./apps/print-fixed-point-app
 
 test: build
 	cd build/lib/ && ./cordic-lib-test
