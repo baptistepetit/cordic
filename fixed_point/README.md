@@ -2,7 +2,7 @@
 
 This standalone cpp library implements the CORDIC algorithm to calculate cos and sin functions with fixed point arithmetic.
 
-Two applications are also provided. The first app is using the library and estimating error to standard cpp implementation for several data width. The second one prints hexadecimal representation of several constants used in the algorithm.
+Three applications are also provided. The first app is using the library and estimating error to standard cpp implementation for several data width. The second one prints hexadecimal representation of several constants used in the algorithm. The last app generates the vhdl code of the cordic pipeline in `hardware_design/rtl/cordic_pipeline.vhd`.
 
 Implementation and basic testing related to CORDIC is in the `lib/` folder as a header only library.
 
@@ -50,6 +50,11 @@ make run_measure
 To run the app printing fixed point constants used in implementation, run:
 ```bash
 make run_print
+```
+
+To re-generate vhdl code for the cordic pipeline implementation in hardware_design, run:
+```bash
+make generate
 ```
 
 ### Running the unit tests
