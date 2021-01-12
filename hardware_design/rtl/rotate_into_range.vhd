@@ -10,9 +10,11 @@ entity rotate_into_range is
     port(
         i_clk        : in std_logic;
         i_reset      : in std_logic;
+        i_valid      : in std_logic;
         i_phase      : in std_logic_vector((angular_data_width-1) downto 0);
         i_position_x : in std_logic_vector((linear_data_width-1) downto 0);
         i_position_y : in std_logic_vector((linear_data_width-1) downto 0);
+        o_valid      : out std_logic;
         o_phase      : out std_logic_vector((angular_data_width-1) downto 0);
         o_position_x : out std_logic_vector((linear_data_width-1) downto 0);
         o_position_y : out std_logic_vector((linear_data_width-1) downto 0)
@@ -51,7 +53,9 @@ begin
                 o_phase <= (others => '0');
                 o_position_x <= (others => '0');
                 o_position_y <= (others => '0');
+                o_valid <= '0';
             else
+                o_valid <= i_valid;
                 case angle_octant is
                     when "000" | "111"  => -- [-PI/4, PI/4[
                         o_phase <= i_phase;

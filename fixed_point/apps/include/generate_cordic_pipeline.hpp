@@ -31,9 +31,11 @@ R"(entity cordic_pipeline is
     port(
         i_clk        : in std_logic;
         i_reset      : in std_logic;
+        i_valid      : in std_logic;
         i_phase      : in std_logic_vector((angular_data_width-1) downto 0);
         i_position_x : in std_logic_vector((linear_data_width-1) downto 0);
         i_position_y : in std_logic_vector((linear_data_width-1) downto 0);
+        o_valid      : out std_logic;
         o_phase      : out std_logic_vector((angular_data_width-1) downto 0);
         o_position_x : out std_logic_vector((linear_data_width-1) downto 0);
         o_position_y : out std_logic_vector((linear_data_width-1) downto 0)
@@ -51,9 +53,11 @@ R"(component cordic_stage is
     port(
         i_clk        : in std_logic;
         i_reset      : in std_logic;
+        i_valid      : in std_logic;
         i_phase      : in std_logic_vector((angular_data_width-1) downto 0);
         i_position_x : in std_logic_vector((linear_data_width-1) downto 0);
         i_position_y : in std_logic_vector((linear_data_width-1) downto 0);
+        o_valid      : out std_logic;
         o_phase      : out std_logic_vector((angular_data_width-1) downto 0);
         o_position_x : out std_logic_vector((linear_data_width-1) downto 0);
         o_position_y : out std_logic_vector((linear_data_width-1) downto 0)
@@ -100,6 +104,10 @@ inline std::stringstream generateCordicPipelineCode(const unsigned pipelineSize)
     generatedCode << "-- Signals" << std::endl;
     for (unsigned i = 0; i <= pipelineSize; i++) {
         generatedCode
+            << "signal valid_" << std::to_string(i)
+            << " : std_logic;"
+            << std::endl;
+        generatedCode
             << "signal phase_" << std::to_string(i)
             << " : std_logic_vector(angular_data_width-1 downto 0);"
             << std::endl;
@@ -119,9 +127,11 @@ inline std::stringstream generateCordicPipelineCode(const unsigned pipelineSize)
     generatedCode << "    report \"generated constants data width mismatch with generic, regenerate the file with correct size.\"" << std::endl;
     generatedCode << "    severity failure;" << std::endl << std::endl;
 
+    generatedCode << "    valid_0 <= i_valid" << ";" << std::endl;
     generatedCode << "    phase_0 <= i_phase" << ";" << std::endl;
     generatedCode << "    position_x_0 <= i_position_x" << ";" << std::endl;
     generatedCode << "    position_y_0 <= i_position_y" << ";" << std::endl;
+    generatedCode << "    o_valid <= " << "valid_" << std::to_string(pipelineSize) << ";" << std::endl;
     generatedCode << "    o_phase <= " << "phase_" << std::to_string(pipelineSize) << ";" << std::endl;
     generatedCode << "    o_position_x <=" << "position_x_"<< std::to_string(pipelineSize) << ";" << std::endl;
     generatedCode << "    o_position_y <=" << "position_y_"<< std::to_string(pipelineSize) << ";" << std::endl;
@@ -136,9 +146,11 @@ inline std::stringstream generateCordicPipelineCode(const unsigned pipelineSize)
         generatedCode << "    ) port map (" << std::endl;
         generatedCode << "        i_clk        => i_clk," << std::endl;
         generatedCode << "        i_reset      => i_reset," << std::endl;
+        generatedCode << "        i_valid      => valid_" << std::to_string(i) << "," << std::endl;
         generatedCode << "        i_phase      => phase_" << std::to_string(i) << "," << std::endl;
         generatedCode << "        i_position_x => position_x_" << std::to_string(i) << "," << std::endl;
         generatedCode << "        i_position_y => position_y_" << std::to_string(i) << "," << std::endl;
+        generatedCode << "        o_valid      => valid_" << std::to_string(i + 1) << "," << std::endl;
         generatedCode << "        o_phase      => phase_" << std::to_string(i + 1) << "," << std::endl;
         generatedCode << "        o_position_x => position_x_" << std::to_string(i + 1) << "," << std::endl;
         generatedCode << "        o_position_y => position_y_" << std::to_string(i + 1) << std::endl;

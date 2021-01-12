@@ -9,10 +9,12 @@ entity add_sub is
     port(
         i_clk            : in std_logic;
         i_reset          : in std_logic;
+        i_valid          : in std_logic;
         i_lhs            : in std_logic_vector((data_width-1) downto 0);
         i_rhs            : in std_logic_vector((data_width-1) downto 0);
         i_is_substraction : in std_logic;
-        o_result : out std_logic_vector((data_width-1) downto 0)
+        o_result : out std_logic_vector((data_width-1) downto 0);
+        o_valid  : out std_logic
     );
 end add_sub;
 
@@ -22,12 +24,16 @@ begin
     begin
         if (i_clk'event and i_clk = '1') then
             if (i_reset = '1') then
+                o_valid <= '0';
                 o_result <= (others => '0');
             else
-                if (i_is_substraction = '1') then
-                    o_result <= std_logic_vector(signed(i_lhs) - signed(i_rhs));
-                else
-                    o_result <= std_logic_vector(signed(i_lhs) + signed(i_rhs));
+                if (i_valid = '1') then
+                    o_valid <= '1';
+                    if (i_is_substraction = '1') then
+                        o_result <= std_logic_vector(signed(i_lhs) - signed(i_rhs));
+                    else
+                        o_result <= std_logic_vector(signed(i_lhs) + signed(i_rhs));
+                    end if;
                 end if;
             end if;
         end if;
