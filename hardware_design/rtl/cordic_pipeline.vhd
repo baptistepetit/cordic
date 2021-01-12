@@ -49,8 +49,10 @@ component cordic_stage is
 end component cordic_stage;
 
 -- Constants
+---- Following constant is used to stop synthesis in
+---- case angle data width generic does not match with
+---- value used to generate constants in this file:
 constant c_ANGULAR_DATA_WIDTH : integer := 15;
-constant c_LINEAR_DATA_WIDTH : integer := 15;
 constant c_STAGE_INDEX_0 : integer := 0;
 constant c_STAGE_INDEX_1 : integer := 1;
 constant c_STAGE_INDEX_2 : integer := 2;
@@ -77,47 +79,51 @@ constant c_STAGE_PHASE_10 : integer := 16#0005#;
 constant c_STAGE_PHASE_11 : integer := 16#0002#;
 
 -- Signals
-signal phase_0 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_0 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_0 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_1 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_1 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_1 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_2 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_2 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_2 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_3 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_3 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_3 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_4 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_4 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_4 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_5 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_5 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_5 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_6 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_6 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_6 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_7 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_7 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_7 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_8 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_8 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_8 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_9 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_9 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_9 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_10 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_10 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_10 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_11 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_11 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_11 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal phase_12 : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);
-signal position_x_12 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
-signal position_y_12 : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);
+signal phase_0 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_0 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_0 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_1 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_1 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_1 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_2 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_2 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_2 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_3 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_3 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_3 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_4 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_4 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_4 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_5 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_5 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_5 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_6 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_6 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_6 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_7 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_7 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_7 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_8 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_8 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_8 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_9 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_9 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_9 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_10 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_10 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_10 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_11 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_11 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_11 : std_logic_vector(linear_data_width-1 downto 0);
+signal phase_12 : std_logic_vector(angular_data_width-1 downto 0);
+signal position_x_12 : std_logic_vector(linear_data_width-1 downto 0);
+signal position_y_12 : std_logic_vector(linear_data_width-1 downto 0);
 
 begin
+
+assert c_ANGULAR_DATA_WIDTH = angular_data_width
+    report "generated constants data width mismatch with generic, regenerate the file with correct size."
+    severity failure;
 
     phase_0 <= i_phase;
     position_x_0 <= i_position_x;
@@ -128,8 +134,8 @@ begin
 
     cordic_stage_0: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_0,
         stage_phase        => c_STAGE_PHASE_0
     ) port map (
@@ -145,8 +151,8 @@ begin
 
     cordic_stage_1: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_1,
         stage_phase        => c_STAGE_PHASE_1
     ) port map (
@@ -162,8 +168,8 @@ begin
 
     cordic_stage_2: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_2,
         stage_phase        => c_STAGE_PHASE_2
     ) port map (
@@ -179,8 +185,8 @@ begin
 
     cordic_stage_3: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_3,
         stage_phase        => c_STAGE_PHASE_3
     ) port map (
@@ -196,8 +202,8 @@ begin
 
     cordic_stage_4: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_4,
         stage_phase        => c_STAGE_PHASE_4
     ) port map (
@@ -213,8 +219,8 @@ begin
 
     cordic_stage_5: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_5,
         stage_phase        => c_STAGE_PHASE_5
     ) port map (
@@ -230,8 +236,8 @@ begin
 
     cordic_stage_6: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_6,
         stage_phase        => c_STAGE_PHASE_6
     ) port map (
@@ -247,8 +253,8 @@ begin
 
     cordic_stage_7: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_7,
         stage_phase        => c_STAGE_PHASE_7
     ) port map (
@@ -264,8 +270,8 @@ begin
 
     cordic_stage_8: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_8,
         stage_phase        => c_STAGE_PHASE_8
     ) port map (
@@ -281,8 +287,8 @@ begin
 
     cordic_stage_9: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_9,
         stage_phase        => c_STAGE_PHASE_9
     ) port map (
@@ -298,8 +304,8 @@ begin
 
     cordic_stage_10: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_10,
         stage_phase        => c_STAGE_PHASE_10
     ) port map (
@@ -315,8 +321,8 @@ begin
 
     cordic_stage_11: cordic_stage
     generic map (
-        angular_data_width => c_ANGULAR_DATA_WIDTH,
-        linear_data_width  => c_LINEAR_DATA_WIDTH,
+        angular_data_width => angular_data_width,
+        linear_data_width  => linear_data_width,
         stage_index        => c_STAGE_INDEX_11,
         stage_phase        => c_STAGE_PHASE_11
     ) port map (

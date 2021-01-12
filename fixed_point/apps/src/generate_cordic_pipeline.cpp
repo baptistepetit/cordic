@@ -8,7 +8,7 @@
 int main(int argc, char **argv) {
     constexpr unsigned pipelineSize = 12;
     std::stringstream generatedCode =
-        generateCordicPipelineCode<2, 13, 15>(pipelineSize);
+        generateCordicPipelineCode<15>(pipelineSize);
 
     std::string filePath = "";
     if (argc > 1) {

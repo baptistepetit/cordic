@@ -60,7 +60,7 @@ R"(component cordic_stage is
     );
 end component cordic_stage;)";
 
-template<int M, int F, int B>
+template<int B>
 inline std::stringstream generateCordicPipelineCode(const unsigned pipelineSize)
 {
     std::stringstream generatedCode;
@@ -78,8 +78,10 @@ inline std::stringstream generateCordicPipelineCode(const unsigned pipelineSize)
     generatedCode << component << std::endl << std::endl;
 
     generatedCode << "-- Constants" << std::endl;
+    generatedCode << "---- Following constant is used to stop synthesis in" << std::endl;
+    generatedCode << "---- case angle data width generic does not match with" << std::endl;
+    generatedCode << "---- value used to generate constants in this file:" << std::endl;
     generatedCode << "constant c_ANGULAR_DATA_WIDTH : integer := " << B << ";" << std::endl;
-    generatedCode << "constant c_LINEAR_DATA_WIDTH : integer := " << (M + F) << ";" << std::endl;
     for (unsigned i = 0; i < pipelineSize; i++) {
         generatedCode
             << "constant c_STAGE_INDEX_" << std::to_string(i)
@@ -99,20 +101,24 @@ inline std::stringstream generateCordicPipelineCode(const unsigned pipelineSize)
     for (unsigned i = 0; i <= pipelineSize; i++) {
         generatedCode
             << "signal phase_" << std::to_string(i)
-            << " : std_logic_vector(c_ANGULAR_DATA_WIDTH-1 downto 0);"
+            << " : std_logic_vector(angular_data_width-1 downto 0);"
             << std::endl;
         generatedCode
             << "signal position_x_" << std::to_string(i)
-            << " : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);"
+            << " : std_logic_vector(linear_data_width-1 downto 0);"
             << std::endl;
         generatedCode
             << "signal position_y_" << std::to_string(i)
-            << " : std_logic_vector(c_LINEAR_DATA_WIDTH-1 downto 0);"
+            << " : std_logic_vector(linear_data_width-1 downto 0);"
             << std::endl;
     }
     generatedCode << std::endl;
 
     generatedCode << "begin" << std::endl << std::endl;
+    generatedCode << "assert c_ANGULAR_DATA_WIDTH = angular_data_width" << std::endl;
+    generatedCode << "    report \"generated constants data width mismatch with generic, regenerate the file with correct size.\"" << std::endl;
+    generatedCode << "    severity failure;" << std::endl << std::endl;
+
     generatedCode << "    phase_0 <= i_phase" << ";" << std::endl;
     generatedCode << "    position_x_0 <= i_position_x" << ";" << std::endl;
     generatedCode << "    position_y_0 <= i_position_y" << ";" << std::endl;
@@ -123,8 +129,8 @@ inline std::stringstream generateCordicPipelineCode(const unsigned pipelineSize)
     for (unsigned i = 0; i < pipelineSize; i++) {
         generatedCode << "    cordic_stage_" << std::to_string(i) << ": cordic_stage" << std::endl;
         generatedCode << "    generic map (" << std::endl;
-        generatedCode << "        angular_data_width => c_ANGULAR_DATA_WIDTH," << std::endl;
-        generatedCode << "        linear_data_width  => c_LINEAR_DATA_WIDTH," << std::endl;
+        generatedCode << "        angular_data_width => angular_data_width," << std::endl;
+        generatedCode << "        linear_data_width  => linear_data_width," << std::endl;
         generatedCode << "        stage_index        => c_STAGE_INDEX_" << std::to_string(i) << "," << std::endl;
         generatedCode << "        stage_phase        => c_STAGE_PHASE_" << std::to_string(i) << std::endl;
         generatedCode << "    ) port map (" << std::endl;
