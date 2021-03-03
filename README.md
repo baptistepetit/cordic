@@ -19,3 +19,9 @@ More details in its [README](poc/README.md).
 Stored in the `fixed_point/` folder, this is the second step of the work. An application in C++ implementing the CORDIC algorithm with fixed point arithmetic to get a fist estimate of bit precision needed and uncover potential hardware implementation problems.
 
 More details in its [README](fixed_point/README.md).
+
+## Hardware Implementation
+
+Stored in the `hardware_design/` folder, this step of the process consists in implementing in hardware the algorithm using the model elaborated at the previous step as a golden reference. Here VHDL is used to describe the implementation, while a combination of ghdl and VUnit allows its automated testing.
+
+More details in its [README](hardware_design/README.md).
