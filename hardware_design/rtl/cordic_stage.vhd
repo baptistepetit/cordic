@@ -46,6 +46,7 @@ constant c_STAGE_PHASE : std_logic_vector((angular_data_width-1) downto 0) :=
     std_logic_vector(to_signed(stage_phase, angular_data_width));
 
 signal negative_rotation_needed : std_logic;
+signal not_negative_rotation_needed : std_logic;
 signal o_valid_1 : std_logic;
 signal o_valid_2 : std_logic;
 signal o_valid_3 : std_logic;
@@ -56,6 +57,7 @@ begin
     negative_rotation_needed <=
         '1' when signed(i_phase) >= to_signed(0, angular_data_width) else
         '0';
+    not_negative_rotation_needed <= not(negative_rotation_needed);
 
     shifted_position_x <= std_logic_vector(
         shift_right(signed(i_position_x), stage_index)
@@ -88,7 +90,7 @@ begin
         i_valid => i_valid,
         i_lhs => i_position_y,
         i_rhs => shifted_position_x,
-        i_is_substraction => not(negative_rotation_needed),
+        i_is_substraction => not_negative_rotation_needed,
         o_result => o_position_y,
         o_valid => o_valid_2
     );
