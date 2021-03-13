@@ -61,3 +61,14 @@ jobs:
       run: make -j
     - name: Run the Unit Tests
       run: make test
+
+  hw-build:
+    defaults:
+      run:
+        working-directory: hardware_design
+    runs-on: ubuntu-latest
+    container: ghdl/vunit:gcc
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run the Unit Tests
+      run: python3 run.py

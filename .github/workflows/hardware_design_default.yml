@@ -1,0 +1,21 @@
+name: Hardware Design Default
+
+on:
+  push:
+    paths:
+    - 'hardware_design/**'
+    - '!hardware_design/README.md'
+
+defaults:
+  run:
+    working-directory: hardware_design
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghdl/vunit:gcc
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run the Unit Tests
+      run: python3 run.py
