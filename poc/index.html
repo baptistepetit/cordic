@@ -45,8 +45,13 @@
             padding: 5px;
         }
 
-        .item {
-            margin: 5px;
+        .flex-parameter-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            width: 100%;
         }
     </style>
 </head>
@@ -59,15 +64,13 @@
                 <canvas id="cordic-app-canvas" width="410" height="410"></canvas>
             </div>
             <div class="flex-container-col">
-                <div class="item">
-                    <h2>Parameters:</h2>
-                </div>
-                <div class="item">
+                <h2>Parameters:</h2>
+                <div class="flex-parameter-row">
                     <label for="angle-input">Target Angle:</label>
                     <input type="number" min="0" max="360" value="60" id="angle-input"
                         onchange="CordicApp.run();"></input>
                 </div>
-                <div class="item">
+                <div class="flex-parameter-row">
                     <label for="iterations-input">CORDIC Iterations:</label>
                     <input type="range" min="1" max="10" value="1" id="iterations-input"
                         oninput="CordicApp.setup(); CordicApp.run();"></input>
