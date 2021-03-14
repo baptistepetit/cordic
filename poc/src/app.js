@@ -1,4 +1,5 @@
 import { calculateCordicCosine, setupCordicConstants } from './cordic.js'
+import { displaySliderValue } from './slider.js'
 import * as renderer from './render.js'
 
 function degToRad(x){
@@ -6,7 +7,12 @@ function degToRad(x){
 }
 
 const iterationsInput = document.getElementById("iterationsInput");
+const iterationsOutput = document.getElementById("iterationsOutput");
 const angleInput = document.getElementById("angle-input");
+
+export function updateIterationsOutput() {
+    displaySliderValue(iterationsInput, iterationsOutput);
+}
 
 export function setup() {
     const cordicIterations = iterationsInput.value;

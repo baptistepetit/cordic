@@ -53,6 +53,20 @@
             padding: 5px;
             width: 100%;
         }
+
+        .slider-container {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            position: relative;
+        }
+
+        .slider-value {
+            position: absolute;
+            left: 0%;
+            top: -1.25rem;
+            transform: translateX(-50%);
+        }
     </style>
 </head>
 
@@ -70,11 +84,15 @@
                     <input type="number" min="0" max="360" value="60" id="angle-input"
                         onchange="CordicApp.run();"></input>
                 </div>
-                <div class="flex-parameter-row">
+                <div class="flex-parameter-row" style="align-items: start; margin: 1.25rem auto 0;">
                     <label for="iterationsInput">CORDIC Iterations:</label>
-                    <input type="range" min="1" max="10" value="1" id="iterationsInput"
-                        oninput="iterationsOutput.innerHTML = value; CordicApp.setup(); CordicApp.run();"></input>
-                    <output id="iterationsOutput">1</output>
+                    <span id="sliderStart">1</span>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="10" value="1" id="iterationsInput"
+                            oninput="CordicApp.updateIterationsOutput(); CordicApp.setup(); CordicApp.run();">
+                        <output class="slider-value" id="iterationsOutput"></output>
+                    </div>
+                    <span id="sliderEnd">10</span>
                 </div>
             </div>
         </div>
