@@ -71,9 +71,10 @@
                         onchange="CordicApp.run();"></input>
                 </div>
                 <div class="flex-parameter-row">
-                    <label for="iterations-input">CORDIC Iterations:</label>
-                    <input type="range" min="1" max="10" value="1" id="iterations-input"
-                        oninput="CordicApp.setup(); CordicApp.run();"></input>
+                    <label for="iterationsInput">CORDIC Iterations:</label>
+                    <input type="range" min="1" max="10" value="1" id="iterationsInput"
+                        oninput="iterationsOutput.innerHTML = value; CordicApp.setup(); CordicApp.run();"></input>
+                    <output id="iterationsOutput">1</output>
                 </div>
             </div>
         </div>

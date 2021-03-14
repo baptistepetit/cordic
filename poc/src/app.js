@@ -5,7 +5,7 @@ function degToRad(x){
     return x * Math.PI / 180;
 }
 
-const iterationsInput = document.getElementById("iterations-input");
+const iterationsInput = document.getElementById("iterationsInput");
 const angleInput = document.getElementById("angle-input");
 
 export function setup() {
