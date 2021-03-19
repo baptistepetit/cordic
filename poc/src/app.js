@@ -29,5 +29,16 @@ export function run() {
     renderer.drawVector(res.cos, res.sin, "#000000", 2);
 }
 
-setup();
-run();
+function init() {
+    renderer.resizeCanvas();
+    setup();
+    run();
+}
+
+function resize() {
+    renderer.resizeCanvas();
+    run();
+}
+
+window.addEventListener('load', init)
+window.addEventListener('resize', resize)
