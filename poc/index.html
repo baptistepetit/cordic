@@ -94,9 +94,9 @@
                 </div>
                 <div class="flex-parameter-row" style="align-items: start; margin: 1.25rem auto 0;">
                     <label for="iterationsInput">CORDIC Iterations:</label>
-                    <span id="sliderStart">1</span>
+                    <span id="sliderStart">0</span>
                     <div class="slider-container">
-                        <input type="range" min="1" max="10" value="1" id="iterationsInput"
+                        <input type="range" min="0" max="10" value="0" id="iterationsInput"
                             oninput="CordicApp.updateIterationsOutput(); CordicApp.setup(); CordicApp.run();">
                         <output class="slider-value" id="iterationsOutput"></output>
                     </div>

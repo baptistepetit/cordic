@@ -16,17 +16,28 @@ export function updateIterationsOutput() {
 
 export function setup() {
     const cordicIterations = iterationsInput.value;
-    setupCordicConstants(cordicIterations);
+    if (cordicIterations > 0) {
+        setupCordicConstants(cordicIterations);
+    }
 }
 
 export function run() {
     const targetAngle = degToRad(angleInput.value);
-    const res = calculateCordicCosine(targetAngle);
+    let res = null;
+
+    if (iterationsInput.value > 0) {
+        res = calculateCordicCosine(targetAngle);
+    }
 
     renderer.clear();
     renderer.drawUnitCircle();
     renderer.drawVector(Math.cos(targetAngle), Math.sin(targetAngle), "#FF0000", 5);
-    renderer.drawVector(res.cos, res.sin, "#000000", 2);
+
+    if (res) {
+        renderer.drawVector(res.cos, res.sin, "#000000", 2);
+    } else {
+        renderer.drawVector(1.0, 0.0, "#000000", 2);
+    }
 }
 
 function init() {
