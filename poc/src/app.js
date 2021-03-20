@@ -1,6 +1,6 @@
 import { calculateCordicCosine, setupCordicConstants } from './cordic.js'
 import { displaySliderValue } from './slider.js'
-import * as renderer from './render.js'
+import * as visualizer from './visualizer.js'
 
 function degToRad(x){
     return x * Math.PI / 180;
@@ -8,7 +8,7 @@ function degToRad(x){
 
 const iterationsInput = document.getElementById("iterationsInput");
 const iterationsOutput = document.getElementById("iterationsOutput");
-const angleInput = document.getElementById("angle-input");
+const angleInput = document.getElementById("angleInput");
 
 export function updateIterationsOutput() {
     displaySliderValue(iterationsInput, iterationsOutput);
@@ -29,25 +29,25 @@ export function run() {
         res = calculateCordicCosine(targetAngle);
     }
 
-    renderer.clear();
-    renderer.drawUnitCircle();
-    renderer.drawVector(Math.cos(targetAngle), Math.sin(targetAngle), "#FF0000", 5);
+    visualizer.clear();
+    visualizer.drawUnitCircle();
+    visualizer.drawVector(Math.cos(targetAngle), Math.sin(targetAngle), "#FF0000", 5);
 
     if (res) {
-        renderer.drawVector(res.cos, res.sin, "#000000", 2);
+        visualizer.drawVector(res.cos, res.sin, "#000000", 2);
     } else {
-        renderer.drawVector(1.0, 0.0, "#000000", 2);
+        visualizer.drawVector(1.0, 0.0, "#000000", 2);
     }
 }
 
 function init() {
-    renderer.resizeCanvas();
+    visualizer.resizeCanvas();
     setup();
     run();
 }
 
 function resize() {
-    renderer.resizeCanvas();
+    visualizer.resizeCanvas();
     run();
 }
 

@@ -23,7 +23,7 @@
             text-align: center;
         }
 
-        .flex-container-main {
+        .main-container {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -31,7 +31,7 @@
             padding: 5px;
         }
 
-        .flex-container {
+        .app-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
@@ -44,7 +44,7 @@
             width: min(40vh, 85vw);
         }
 
-        .flex-container-col {
+        .parameters-container {
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
@@ -53,7 +53,7 @@
             padding: 5px;
         }
 
-        .flex-parameter-row {
+        .parameter-row {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -79,20 +79,20 @@
 </head>
 
 <body>
-    <div class="flex-container-main">
+    <div class="main-container">
         <h1>CORDIC Algorithm Visualization Tool</h1>
-        <div class="flex-container">
+        <div class="app-container">
             <div class="visualizer-container" id="visualizerContainer">
                 <canvas id="visualizer" width="256" height="256"></canvas>
             </div>
-            <div class="flex-container-col">
+            <div class="parameters-container">
                 <h2>Parameters:</h2>
-                <div class="flex-parameter-row">
-                    <label for="angle-input">Target Angle:</label>
-                    <input type="number" min="0" max="360" value="60" id="angle-input"
+                <div class="parameter-row">
+                    <label for="angleInput">Target Angle:</label>
+                    <input type="number" min="0" max="360" value="60" id="angleInput"
                         onchange="CordicApp.run();"></input>
                 </div>
-                <div class="flex-parameter-row" style="align-items: start; margin: 1.25rem auto 0;">
+                <div class="parameter-row" style="align-items: start; margin: 1.25rem auto 0;">
                     <label for="iterationsInput">CORDIC Iterations:</label>
                     <span id="sliderStart">0</span>
                     <div class="slider-container">
