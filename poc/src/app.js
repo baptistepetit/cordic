@@ -1,17 +1,42 @@
 import { calculateCordicCosine, setupCordicConstants } from './cordic.js'
 import { displaySliderValue } from './slider.js'
 import * as visualizer from './visualizer.js'
+import * as knob from './knob.js'
 
 function degToRad(x){
     return x * Math.PI / 180;
 }
 
+function radToDeg(x){
+    return x * 180 / Math.PI;
+}
+
+const angleInput = document.getElementById("angleInput");
+const canvas = document.getElementById("visualizer");
 const iterationsInput = document.getElementById("iterationsInput");
 const iterationsOutput = document.getElementById("iterationsOutput");
-const angleInput = document.getElementById("angleInput");
 
 export function updateIterationsOutput() {
     displaySliderValue(iterationsInput, iterationsOutput);
+}
+
+export function updateAngleInput(e) {
+    const rotation = knob.dragRotate(e);
+
+    if (rotation !== null) {
+        let angle = parseInt(angleInput.value);
+        angle += radToDeg(rotation);
+
+        if (angle < 0) {
+            angle += 360;
+        }
+        if (angle > 360) {
+            angle -= 360;
+        }
+
+        angleInput.value = Math.floor(angle);
+        run();
+    }
 }
 
 export function setup() {
@@ -51,5 +76,9 @@ function resize() {
     run();
 }
 
-window.addEventListener('load', init)
-window.addEventListener('resize', resize)
+window.addEventListener('load', init);
+window.addEventListener('resize', resize);
+
+canvas.addEventListener('pointerdown', knob.startDragging);
+canvas.addEventListener('pointerup', knob.stopDragging);
+canvas.addEventListener('pointermove', updateAngleInput);
