@@ -5,6 +5,7 @@ on:
     paths:
     - 'hardware_design/**'
     - '!hardware_design/README.md'
+    - '.github/workflows/hardware_design_default.yml'
 
 defaults:
   run:

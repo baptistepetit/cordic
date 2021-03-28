@@ -5,6 +5,7 @@ on:
     paths:
     - 'fixed_point/**'
     - '!fixed_point/README.md'
+    - '.github/workflows/fixed_point_default.yml'
 
 defaults:
   run:
