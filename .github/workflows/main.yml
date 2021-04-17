@@ -30,6 +30,33 @@ jobs:
       run: npm run build
     - name: Run the unit tests
       run: npm test
+    - name: Save website artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: demo-website
+        path: ${{ github.workspace }}/poc/dist
+        if-no-files-found: error
+
+  gh-pages-deploy:
+    needs: poc-build
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+    - name: Setup independent git worktree to receive artifacts
+      run: ./scripts/deploy_gh_pages_setup.sh "poc/dist"
+    - name: Download website artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: demo-website
+        path: ${{ github.workspace }}/poc/dist
+    - name: Deploy gh-pages website
+      run: ./scripts/deploy_gh_pages_push_and_clean.sh "poc/dist"
 
   fp-cppcheck:
     defaults:
@@ -38,6 +65,8 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: Install cppcheck
       run: sudo apt-get install cppcheck -y
     - name: Run an analysis of the code

@@ -1,25 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description"
+        content="A simple visual representation of the CORDIC algorithm, which is used to calculate cosine and sine in your calculator.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <title>CORDIC Demo</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
         body {
             font-family: 'Roboto', sans-serif;
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            min-height: 100vh;
         }
 
-        .flex-container {
+        h1,
+        p {
+            text-align: center;
+        }
+
+        .main-container {
             display: flex;
-            height: 600px;
+            flex-direction: column;
+            justify-content: space-around;
+            height: calc(100vh - 10px);
+            padding: 5px;
+        }
+
+        .app-container {
+            display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
+            height: 70vh;
         }
 
-        .flex-container-col {
+        .visualizer-container {
+            height: min(40vh, 85vw);
+            width: min(40vh, 85vw);
+            touch-action: none;
+        }
+
+        .parameters-container {
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
@@ -28,33 +55,60 @@
             padding: 5px;
         }
 
-        .item {
-            margin: 5px;
+        .parameter-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            width: 100%;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            position: relative;
+        }
+
+        .slider-value {
+            position: absolute;
+            left: 0%;
+            top: -1.25rem;
+            transform: translateX(-50%);
         }
     </style>
 </head>
 
 <body>
-    <div class="flex-container">
-        <div class="item">
-            <canvas id="cordic-app-canvas" width="410" height="410"></canvas>
+    <div class="main-container">
+        <h1>CORDIC Algorithm Visualization Tool</h1>
+        <div class="app-container">
+            <div class="visualizer-container" id="visualizerContainer">
+                <canvas id="visualizer" width="256" height="256"></canvas>
+            </div>
+            <div class="parameters-container">
+                <h2>Parameters:</h2>
+                <div class="parameter-row">
+                    <label for="angleInput">Target Angle:</label>
+                    <input type="number" min="0" max="360" value="60" id="angleInput"
+                        oninput="CordicApp.run();"></input>
+                </div>
+                <div class="parameter-row" style="align-items: start; margin: 1.25rem auto 0;">
+                    <label for="iterationsInput">CORDIC Iterations:</label>
+                    <span id="sliderStart">0</span>
+                    <div class="slider-container">
+                        <input type="range" min="0" max="10" value="0" id="iterationsInput"
+                            oninput="CordicApp.updateIterationsOutput(); CordicApp.setup(); CordicApp.run();">
+                        <output class="slider-value" id="iterationsOutput"></output>
+                    </div>
+                    <span id="sliderEnd">10</span>
+                </div>
+            </div>
         </div>
-        <div class="flex-container-col">
-            <div class="item">
-                <h1>Parameters:</h1>
-            </div>
-            <div class="item">
-                <label for="angle-input">Target Angle:</label>
-                <input type="number" min="0" max="360" value="60" id="angle-input" onchange="CordicApp.run();"></input>
-            </div>
-            <div class="item">
-                <label for="iterations-input">CORDIC Iterations:</label>
-                <input type="number" min="1" max="32" step="1" value="1" id="iterations-input"
-                    onchange="CordicApp.setup(); CordicApp.run();"></input>
-            </div>
-        </div>
+        <p>See the full project, with hardware implementation, in GitHub: <a
+                href="https://github.com/baptistepetit/cordic" target="_blank" rel="noopener">baptistepetit/cordic</a>.</p>
     </div>
-    <script src="./dist/bundle.js"></script>
 </body>
 
 </html>

@@ -3,6 +3,7 @@ name: PoC Default
 on:
   push:
     paths:
+    - '.github/workflows/poc_default.yml'
     - 'poc/**'
     - '!poc/README.md'
 
